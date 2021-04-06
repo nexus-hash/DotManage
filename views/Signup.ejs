@@ -1,0 +1,68 @@
+<!-- Login Page -->
+<!DOCTYPE html>
+
+<html >
+    <head>
+        <title>Signup Page</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="/stylesheets/dotmanage.css">
+
+
+        <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="flex">      
+        <div id="bodypage">
+        <center>
+            <h1 id="loginhead" style="font-size:3vw">! DotManage !</h1>
+            <br><div id="logindiv"><br>
+            <h2 id="loglab"style="font-size:2vw">Signup</h2><br><br>
+        <form action="/signup" method="POST">
+        <input name="username"id="username" class="logintextbox" type="text" placeholder="UserName"required><br><br><br>
+        <input name="email"id="email"class="logintextbox" type="text" placeholder="Email-ID" onkeyup="emailcheck();" required></input><br><span id="errormail"></span><br><br>
+        <input name="password"id="password"class="logintextbox" type="password" placeholder="Password" onkeyup="check();"required><br><br><br>
+        <input name="cpassword"id="cpassword"class="logintextbox" type="password" placeholder="Confirm Password" onkeyup="check();"required> <br>      <span id='message'></span><br>
+        <p>
+        <button id="loginbutton" type="submit"id="submitbutton" > Create Account </button> </a></form><br>
+        <p size="20px"><strong>Existing Account ?</strong> <a href="/login"><button id="loginbutton">Login</button></a></p>
+        </center>
+      <center>
+        <br>
+    </center></div>
+    </div>
+        </div>
+        <script type="text/javascript" lang="javascript">
+            var check = function() {
+                
+  if (document.getElementById('password').value ==
+    document.getElementById('cpassword').value) {
+    document.getElementById('message').style.color = 'green';
+    document.getElementById('message').innerHTML = '';
+    submitbutton.disabled=false;
+    console.log(submitbutton.disabled)
+  } else {
+    document.getElementById('message').style.color = 'red';
+    document.getElementById('message').innerHTML = 'not matching';
+    submitbutton.disabled="disabled";
+    console.log(submitbutton.disabled)
+  }
+}
+var emailcheck= function(){
+    const mailformat= /\S+@\S+\.\S+/;
+    if(mailformat.test(document.getElementById('email').value)){
+        document.getElementById('errormail').style.color='green';
+        document.getElementById('errormail').innerHTML='';
+        submitbutton.disabled=false;
+        console.log(submitbutton.disabled)
+    }else{
+        document.getElementById('errormail').style.color='red';
+        document.getElementById('errormail').innerHTML='Not a valid Email';
+        submitbutton.disabled="disabled";
+        console.log(submitbutton.disabled)
+    }
+}
+        </script>
+    </body>
+</html>
