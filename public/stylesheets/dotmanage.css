@@ -1,0 +1,81 @@
+
+
+
+*{
+    border-width:0;
+    font-style: normal;
+    color: white;
+    font-family: 'Montserrat', sans-serif;
+  }
+  
+html{
+      /* background-image: url('https://wintertime.com.my/wp-content/uploads/2019/07/event-production-company-p2-entertainment-group-1.jpg'); */
+    background-repeat: no-repeat;
+    background-size: 110%;
+    /* opacity: 0.3; */
+    background-color: black;
+}
+
+#loginhead{
+    color: white;
+    font-size: 50px;
+}
+
+.logintextbox{
+    padding: 10px;
+    background-color:lightgrey;
+    border-radius: 5px;
+    height: 10%;
+    font-weight: bolder;
+    font-size: 1.4vw;
+    width: 30%;
+    color:black;
+
+}
+
+#logindiv{
+    margin-left: 25%;
+    margin-right: 25%;
+    padding-top: 5%;
+    padding-bottom: 5%;
+    border-radius: 2%;
+    border: 5px solid white;
+}
+#bodypage{
+    background-image: url("NN2.gif");
+    background-size: cover;
+}
+
+#loginbutton{
+    padding: 15px;
+    font-weight: bold;
+    font-size: 1.3vw;
+    width: 30%;
+    text-align:center;
+    padding-top: 10px;
+    color: black;
+    background-color: greenyellow;
+    height:10%;
+    align-self: center;
+    border-radius: 10px;
+    box-shadow: 0 0 20px #5ee4ff ;
+  }
+
+#invalid{
+    color: red;
+    text-align: center;
+    background: black;
+    background-position: center;
+    width: 50%;
+    height:25px;
+}
+
+#loglab{
+    background-color: black;
+    width: 30%;
+    height: 15%;
+    padding-top: 1%;
+    padding-bottom: 1%;
+    border-radius: 20px;
+    box-shadow: 0  0 30px white;
+}
