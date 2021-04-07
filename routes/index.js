@@ -2,7 +2,7 @@ var express = require('express');
 var router = express.Router();
 
 const pool = require('./db')
-const session=require('express-session');
+const session=require('cookie-session');
 const sha256=require('sha256')
 
 /* GET home page. */
@@ -57,7 +57,6 @@ router.get('/invalid-credentials',function(req,res,next){
 })
 
 router.post('/login',function(req,res,next){
-  console.log(req.body)
   pool.connect()
   pool.query('select count(*) from users where uemail=$1',[req.body.email],function(err,resp){
     if(err){
@@ -69,7 +68,6 @@ router.post('/login',function(req,res,next){
         pool.query('select *from users where uemail=$1',[req.body.email],function(error,response){
           if(sha256(req.body.password)==response.rows[0].upassword){
             req.session.username=response.rows[0].uname.toString();
-            console.log(req.session.username)
             req.session.userid=response.rows[0].uid.toString();
             pool.end()
             res.redirect('/dashboard');
@@ -84,8 +82,6 @@ router.post('/login',function(req,res,next){
 
 router.get('/dashboard',function(req,res,next){
   if(req.session.username){
-    console.log(req.session.username)
-
     res.send("Welcom to Dashboard. This website is underconstruction.")
   }else{
     res.redirect('/login');
