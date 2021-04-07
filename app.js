@@ -19,11 +19,24 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.set('trust proxy', 1);
+
 app.use(session({
-  secret:"DBMS",
-  resave: false,
-  saveUninitialized: true
-}))
+cookie:{
+    secure: true,
+    maxAge:60000
+       },
+secret: 'secret',
+saveUninitialized: true,
+resave: false
+}));
+
+app.use(function(req,res,next){
+if(!req.session){
+    return next(new Error('Oh no')) //handle error
+}
+next() //otherwise continue
+});
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
