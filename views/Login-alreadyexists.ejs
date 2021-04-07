@@ -1,0 +1,47 @@
+<!-- Login Page -->
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Login Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/stylesheets/dotmanage.css">
+
+
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+
+<body>
+
+    <div class="bodypage">
+        <h1 id="loginhead" style="text-align:center" style="font-size:3vw"> DotManage </h1>
+        <br>
+        <div class="logindiv"><br>
+            <center>
+                <h2 id="loglab" style="font-size:2vw">Login</h2><br>
+                <span style="color: greenyellow; font-size: .9vw;">Account already exists with the entered EmailId</span>
+                <form action="/login" method="POST">
+                    <br>
+                    <input id="email" class="logintextbox" name="email" required type="email"
+                        placeholder="Email"><br><br>
+                    <input id=" password" class="logintextbox" type="password" name="password" required
+                        placeholder="Password">
+                    <p>
+                        <button class="loginbutton" id="submitbutton" type="submit"> Login </button> </a>
+                </form>
+                </h4>
+            </center>
+            <center>
+                <br>
+
+                <p>Do not have and account? <a href="/signup"><button class="loginbutton">Signup</button></a>
+            </center>
+        </div>
+    </div>
+</body>
+
+</html>

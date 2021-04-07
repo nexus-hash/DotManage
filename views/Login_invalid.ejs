@@ -1,37 +1,46 @@
 <!-- Login Page -->
 <!DOCTYPE html>
 
-<html >
-    <head>
-        <title>Login Page</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <h1 id="loginhead" style="text-align:center">! DotManage !</h1>
-        <link rel="stylesheet" href="/stylesheets/dotmanage.css">
+<html>
+
+<head>
+    <title>Login Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="/stylesheets/dotmanage.css">
 
 
-        <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
-<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
-    </head>
-    <body>
-        
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
 
-        <br><div id="logindiv"><br>
-        <center>
-            <h2 id="loglab">Login</h2>
-        <form action="null">
-        <input id="logintextbox" type="text" placeholder="Username"><br><br>
-        <input id="logintextbox" type="text" placeholder="Password">
-        <p>
-        <h4 id="invalid">Invalid Username or Password</h4>
-        <a href="dashboard.html"><button id="loginbutton"> Login </button> </a></form>
-        
-        </center>
-      <center>
+<body>
+
+    <div class="bodypage">
+        <h1 id="loginhead" style="text-align:center" style="font-size:3vw"> DotManage </h1>
         <br>
-        <h2 id="loglab">Signup</h2>
-        <a href="par_login.html"><button id="loginbutton">Signup</button></a>
-    </center></div>
+        <div class="logindiv"><br>
+            <center>
+                <h2 id="loglab" style="font-size:2vw">Login</h2><br>
+                <span style="color: red; font-size: .9vw;">Invalid Credentials</span>
+                <form action="/login"method="POST">
+                    <input id="email" class="logintextbox" name="email" required type="email"
+                        placeholder="Email"><br><br>
+                    <input id=" password" class="logintextbox" type="password" name="password" required
+                        placeholder="Password">
+                    <p>
+                        <button class="loginbutton" id="submitbutton" type="submit"> Login </button> </a>
+                </form>
+                </h4>
+            </center>
+            <center>
+                <br>
 
-    </body>
+                <p>Do not have and account? <a href="/signup"><button class="loginbutton">Signup</button></a>
+            </center>
+        </div>
+    </div>
+</body>
+
 </html>
