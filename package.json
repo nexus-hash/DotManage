@@ -21,5 +21,8 @@
     "session": "^0.1.0",
     "sha256": "^0.2.0",
     "tailwind": "^4.0.0"
+  },
+  "devDependencies": {
+    "tailwindcss": "^2.1.1"
   }
 }

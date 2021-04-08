@@ -82,10 +82,14 @@ router.post('/login',function(req,res,next){
 
 router.get('/dashboard',function(req,res,next){
   if(req.session.username){
-    res.send("Welcom to Dashboard. This website is underconstruction.")
+    res.send("Welcome to Dashboard. This website is underconstruction.")
   }else{
     res.redirect('/login');
   }
+})
+
+router.get('/createteam',function(req,res,next){
+  res.render("CreateTeam")
 })
 
 module.exports = router;

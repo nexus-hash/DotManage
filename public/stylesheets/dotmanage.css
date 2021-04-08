@@ -82,3 +82,26 @@ html{
     border-radius: 20px;
     box-shadow: 0  0 30px white;
 }
+
+.Backgroundapp{
+    background-color: rgba(236, 249, 240, 1);
+    background-position: center;
+}
+
+.logout{
+    border-color:white;
+    color:white;
+}
+
+.logout:hover{
+    border-color:white;
+    background-color: rgba(236, 249, 240, 1);
+    color: rgba(73,115,162,1);
+}
+
+
+.btn {
+    border: 1px solid white;
+    padding: .19% .19%;
+    cursor: pointer;
+  }
