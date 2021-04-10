@@ -4,7 +4,7 @@
 *{
     border-width:0;
     font-style: normal;
-    color: white;
+
     font-family: 'Montserrat', sans-serif;
   }
   
@@ -104,4 +104,10 @@ html{
     border: 1px solid white;
     padding: .19% .19%;
     cursor: pointer;
+  }
+
+#rightmargin{
+    color: black;
+    border-style: solid ;
+    border-color: black;
   }

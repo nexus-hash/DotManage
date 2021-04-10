@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Create Team</title>
+    <title>New Task</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/dotmanage.css">
@@ -69,18 +69,20 @@
                     <hr style="width:90%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
 
                     <form action="">
-                        <h3>Team Name :</h3>
-                        <input type="text" name ="teamname">
-                        <h3>Description</h3>
-                        <textarea name= "teamdesc" cols="30" rows="10"></textarea>
-                        <h3>Max Members</h3>
-                        <input type="text" name = "maxnum" >
+                        <h3>Task :</h3>
+                        <input type="text" name ="taskname">
+                        <h3>Task Details</h3>
+                        <textarea name= "teamdesc" cols="30" rows="5"></textarea>
+                        <h3>Deadline</h3>
+                        <input type="date" name = "maxnum" >
+
+                        <h3>Assign to</h3>
+                        <input type="text" name ="taskname">
                         <br>
-                        <input type="submit" id="submit">
+                        <input type="submit" id="submit" value="Assign">
                     </form>
 
                 </div>
-                
                 
             </div>
         </div>
