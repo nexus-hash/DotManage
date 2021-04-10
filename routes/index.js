@@ -92,4 +92,8 @@ router.get('/createteam',function(req,res,next){
   res.render("CreateTeam")
 })
 
+router.get('/settask',function(req,res,next){
+  res.render("SetTask")
+})
+
 module.exports = router;
