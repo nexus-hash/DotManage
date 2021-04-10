@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>New Task</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/dotmanage.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://kit.fontawesome.com/d1f9ff8b6d.js" crossorigin="anonymous"></script>
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <style> 
+        .submit{
+            border-radius: 5px;
+            background-color: rgba(73,115,162,1) ;
+            width: 20%;
+            position: center;
+            margin: 3%;
+            padding: 1%;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="min-h-screen bg-dotmanage">
+        <div style="width: 100%;height: 8%;background-color: rgba(73,115,162,1);position: fixed;" class="object-top">
+            <div style="padding-right: 1%;padding-top: .9%;">
+                <button class="md:text-lg btn logout" style="float: right;">Logout</button>
+            </div>
+
+            <p class="text-base md:text-3xl " style="padding-left:.8%; padding-top:.1%; color: white; text-align: left;">Dot Manage</p>
+        </div>
+
+        <div class="flex md:flex-row" style="position: fixed;top: 8%;width: 100%;height: 92%;">
+
+            <div href="" style="width: 15%;height: 100%;background-color: white;" class="">
+
+                <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
+                    <i style="color: black; float: left; margin-right: 10px;" class="fas fa-users"></i> <p style="color: black; ">View Teams</p>
+            </div>
+
+                <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
+                    <i style="color: black; float: left; margin-right: 10px;" class="fas fa-money-bill-alt"></i><p style="color: black;">Estimate Cost</p>
+                </div>
+            </div>
+
+  
+
+            <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;" class="formbody">
+
+                <div style="flex-grow: 1 ;width: 90%;height: 100%; padding: 5%; overflow:auto;">
+                    <h1 style="font-size: 1.2em; position: center;">Hello</h1>
+                    <hr style="width:90%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
+
+                    <table class="min-w-full divide-y divide-gray-200">
+                        <thead>
+                        <tr>
+                            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Ongoing task
+                            </th>
+                            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Deadline
+                            </th>
+                            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Progress
+                            </th>
+                            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
+                            Actions
+                            </th>
+                            <th class="px-6 py-3 bg-gray-50"></th>
+                        </tr>
+                        </thead>
+
+                        
+                        
+                    </table>
+
+                    <input type="submit" class="submit" value="Create new team"> 
+                    
+                    <input type="submit" class="submit" value="Join Existing team">
+                    
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

@@ -96,4 +96,14 @@ router.get('/settask',function(req,res,next){
   res.render("SetTask")
 })
 
+router.get('/userlanding',function(req,res,next){
+  res.render("userlanding")
+})
+
+router.get('/teamlanding',function(req,res,next){
+  res.render("teamlanding")
+})
+
+
+
 module.exports = router;
