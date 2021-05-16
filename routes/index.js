@@ -229,19 +229,24 @@ router.get('/costestimated',function(req,res,next){
 
 
     eaf=eaf*RequiredSoftware[scale.indexOf(updated.Requirements.toString())]
-    eaf=eaf*SizeofProjectDatabase[scale.indexOf(updated.Database.toString())]
+    eaf=eaf*SizeofProjectDatabase[scale3.indexOf(updated.Database.toString())]
     eaf=eaf*ComplexityofTheProject[scale.indexOf(updated.Complexity.toString())]
+    console.log(eaf);
+    console.log(RequiredSoftware[scale.indexOf(updated.Requirements.toString())])
 
     eaf=eaf*PerformanceRestriction[scale2.indexOf(updated.Performance.toString())]
     eaf=eaf*MemoryRestriction[scale2.indexOf(updated.Memory.toString())]
     eaf=eaf*VirtualMachineEnvironment[scale3.indexOf(updated.vmenvironment.toString())]
     eaf=eaf*RequiredTurnaboutTime[scale3.indexOf(updated.TurnaboutTime.toString())]
+    console.log(eaf);
 
     eaf=eaf*AnalysisCapability[scale.indexOf(updated.AnalysisCapability.toString())]
     eaf=eaf*ApplicationExperience[scale.indexOf(updated.AppExperience.toString())]
     eaf=eaf*SoftwareEngineerCapability[scale.indexOf(updated.SoftwareCapability.toString())]
     eaf=eaf*VirtualMachineExperience[scale.indexOf(updated.vmexperience.toString())]
     eaf=eaf*ProgrammingExperience[scale.indexOf(updated.ProgrammingExperience.toString())]
+    console.log(eaf);
+
     eaf=eaf*SoftwareEngineeringMethods[scale.indexOf(updated.sem.toString())]
     eaf=eaf*UseofSoftwareTools[scale.indexOf(updated.ust.toString())]
     eaf=eaf*DevelopmentTime[scale.indexOf(updated.DevelopmentTime.toString())]
