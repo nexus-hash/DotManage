@@ -255,7 +255,7 @@ router.get('/costestimated',function(req,res,next){
       scheduledTimeD: scheduledTime
     }
     console.log(results);
-    res.render('CostEstimationOutput',results)
+    res.render('CostEstimationoutput',results)
   } catch (error) {
     console.log(error)
   }
