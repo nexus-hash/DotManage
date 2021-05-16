@@ -13,32 +13,35 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
     <style>
-        h2{
+        h2 {
             padding: 1.5%;
             font-weight: 700;
             text-decoration: underline;
         }
-        h3{
+
+        h3 {
             padding: 1%;
             margin-left: 1.5%;
         }
-        select{
+
+        select {
             width: 25%;
             margin: 3%;
         }
-        input{
+
+        input {
             width: 25%;
             margin-left: 2%;
         }
-        .submit{
+
+        .submit {
             border-radius: 5px;
-            background-color: rgba(73,115,162,1) ;
+            background-color: rgba(73, 115, 162, 1);
             width: 20%;
             padding: 1%;
             position: center;
             color: white;
         }
-        
     </style>
 </head>
 
@@ -49,103 +52,256 @@
                 <button class="md:text-lg btn logout" style="float: right;">Logout</button>
             </div>
 
-            <p class="text-base md:text-3xl " style="padding-left:.8%; padding-top:.1%; color: white; text-align: left;">Dot Manage</p>
+            <p class="text-base md:text-3xl "
+                style="padding-left:.8%; padding-top:.1%; color: white; text-align: left;">Dot Manage</p>
         </div>
 
         <div class="flex md:flex-row" style="position: fixed;top: 8%;width: 100%;height: 92%;">
 
             <div href="" style="width: 15%;height: 100%;background-color: white;" class="">
 
-                <a href="/teamlanding">
+                <a href="/unavailable">
                     <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
-                    <i style="color: black; float: left; margin-right: 10px;" class="fas fa-users"></i> <p style="color: black; ">View Teams</p>
+                        <i style="color: black; float: left; margin-right: 10px;" class="fas fa-users"></i>
+                        <p style="color: black; ">View Teams</p>
                     </div>
                 </a>
 
-                <a href="/costestimate">
+                <a href="/costestimation">
                     <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
-                        <i style="color: black; float: left; margin-right: 10px;" class="fas fa-money-bill-alt"></i><p style="color: black;">Estimate Cost</p>
+                        <i style="color: black; float: left; margin-right: 10px;" class="fas fa-money-bill-alt"></i>
+                        <p style="color: black;">Estimate Cost</p>
                     </div>
                 </a>
-                
+
             </div>
 
-  
 
-            <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;" class="formbody">
 
-                <div style="flex-grow: 1 ;width: 90%;height: 100%; padding: 5%; overflow:auto;">
+            <div style="flex-grow: 1 ;width: 80%;height: 100%; " class="formbody">
+
+                <div style="flex-grow: 1 ;width: 100%;height: 100%; padding: 5%; overflow:auto;">
                     <h1 style="font-size: 1.5em; ">Estimate Cost</h1>
-                    <hr style="width:90%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
+                    <hr
+                        style="width:100%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
 
-                    <form action="">
+                    <form action="/costestimated" method="GET">
                         <h2>
-                            Product Type: <select name="" id="" required>
-                                <option value=""></option>
+                            <label>ProjectType: </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="ProjectType" name="ProjectType" required>
+                                <option class="pt-6">Organic</option>
+                                <option>Semi-Detached</option>
+                                <option>Embeded</option>
                             </select>
                         </h2>
                         <h2>
-                            Code Size<input type="text" required>
+                            Expected number of Lines of Code in Kilo lines<input type="number" id="kloc" name="kloc"
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 rounded "
+                                required>
                         </h2>
-
+                        <br>
+                        <p class="text-xs pr-3 text-opacity-75" style="color: gray;">
+                            <label style="color: red;">Note: </label>
+                            
+                            Here all values are by default considered nominal if nothing else is specified.
+                        </p >
                         <h2>Product Parameters</h2>
-                            <h3>
-                                Requirements: <select name="" id="">
-                                    <option value=""></option>
-                                </select>
-                                Database Size: <select name="" id="">
-                                    <option value=""></option>
-                                </select>
-                            </h3>
-                            <h3>
-                                Complexity: <select name="" id="">
-                                    <option value=""></option>
-                                </select>
-                            </h3>
+                        
+                        <h3>
+                            <label>Requirements: </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="Requirements" name="Requirements">
+                                <option class="pt-6">None</option>
+                                <option>Very-Low</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+
+                        </h3>
+                        <h3>
+                            <label>Database Size: </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="Database" name="Database" required>
+                                <option class="pt-6">None</option>
+                                <option>Very-Low</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
+                        <h3>
+                            <label>Complexity : </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="Complexity" name="Complexity" required>
+                                <option class="pt-6">None</option>
+                                <option>Very-Low</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
 
                         <h2>Hardware Parameters</h2>
-                            <h3>
-                                Performance: <select name="" id="">
-                                    <option value=""></option>
-                                </select>
-                                Memory: <select name="" id="">
-                                    <option value=""></option>
-                                </select>
-                            </h3>
-                            <h3>
-                                VM Environment: <select name="" id="">
-                                    <option value=""></option>
-                                </select>
-                                Turnabout Time: <select name="" id="">
-                                    <option value=""></option>
-                                </select>
-                            </h3>
+                        <h3>
+                            <label>Performance Restriction:</label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="Performance" name="Performance" required>
+                                <option class="pt-6">None</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
+                        <h3>
+                            <label>Memory Restriction: </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="Memory" name="Memory" required>
+                                <option class="pt-6">None</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
+                        <h3>
+                            <label>VM Environment :</label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="vmenvironment" name="vmenvironment" required>
+                                <option class="pt-6">None</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
+                        <h3>
+                            <label>Turnabout Time : </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="TurnaboutTime" name="TurnaboutTime" required>
+                                <option class="pt-6">None</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
 
                         <h2>Personnel Parameters</h2>
-                            <h3>
-                                Analysis Capability: <select name="" id="">
-                                    <option value=""></option>
-                                </select>
-                                App Experience: <select name="" id="">
-                                    <option value=""></option>
-                                </select>
-                            </h3>
-                            <h3>
-                                Software Capability: <select name="" id="">
-                                    <option value=""></option>
-                                </select>
-                                VM Experience: <select name="" id="">
-                                    <option value=""></option>
-                                </select>
-                            </h3>
-                        
-                        <input type="submit" class="submit" value="Get Cost">
-                        <button class="submit"> Back to Dashboard</button>
+                        <h3>
+                            <label>Analysis Capability : </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="AnalysisCapability" name="AnalysisCapability" required>
+                                <option class="pt-6">None</option>
+                                <option>Very-Low</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
+                        <h3>
+                            <label>App Experience : </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="AppExperience" name="AppExperience" required>
+                                <option class="pt-6">None</option>
+                                <option>Very-Low</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
+                        <h3>
+                            <label>Software Capability : </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="SoftwareCapability" name="SoftwareCapability" required>
+                                <option class="pt-6">None</option>
+                                <option>Very-Low</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
+                        <h3>
+                            <label>VM Experience : </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="vmexperience" name="vmexperience" required>
+                                <option class="pt-6">None</option>
+                                <option>Very-Low</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
+                        <h3>
+                            <label>Programming Experience : </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="ProgrammingExperience" name="ProgrammingExperience" required>
+                                <option class="pt-6">None</option>
+                                <option>Very-Low</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
+                        <h2>Project Parameters</h2>
+                        <h3>
+                            <label>Software Engineering methods: </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="sem" name="sem" required>
+                                <option class="pt-6">None</option>
+                                <option>Very-Low</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
+                        <h3>
+                            <label>Use of software tools: </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="ust" name="ust" required>
+                                <option class="pt-6">None</option>
+                                <option>Very-Low</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
+                        <h3>
+                            <label>Development Time: </label><select
+                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                                id="DevelopmentTime" name="DevelopmentTime" required>
+                                <option class="pt-6">None</option>
+                                <option>Very-Low</option>
+                                <option>Low</option>
+                                <option>Nominal</option>
+                                <option>High</option>
+                                <option>Very-High</option>
+                            </select>
+                        </h3>
 
-                    </form>
+                        <input class="submit" type="submit" id="submitbutton" value="Get Cost"></input>
+                    </form><br>
+                    <a href='/dashboard'><button style="border-radius: 5px;
+                        background-color: rgba(73,115,162,1) ;
+                        width: 20%;
+                        padding: 1%;
+                        position: center;
+                        color: white;"> Back to Dashboard</button></a>
+
+
 
                 </div>
-
+                
             </div>
         </div>
     </div>
