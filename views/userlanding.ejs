@@ -20,6 +20,7 @@
             position: center;
             margin: 3%;
             padding: 1%;
+            color: aliceblue;
         }
         
     </style>
@@ -29,7 +30,7 @@
     <div class="min-h-screen bg-dotmanage">
         <div style="width: 100%;height: 8%;background-color: rgba(73,115,162,1);position: fixed;" class="object-top">
             <div style="padding-right: 1%;padding-top: .9%;">
-                <button class="md:text-lg btn logout" style="float: right;">Logout</button>
+                <a href="/logout"><button class="md:text-lg btn logout" style="float: right;">Logout</button></a>
             </div>
 
             <p class="text-base md:text-3xl " style="padding-left:.8%; padding-top:.1%; color: white; text-align: left;">Dot Manage</p>
@@ -50,23 +51,20 @@
 
   
 
-            <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;" class="formbody">
+            <div style="flex-grow: 1 ;width: 85%;height: 90%; padding: 4%;" class="formbody">
 
                 <div style="flex-grow: 1 ;width: 90%;height: 100%; padding: 5%; overflow:auto;">
-                    <h1 style="font-size: 1.2em; position: center;">Hello</h1>
+                    <h1 style="font-size: 1.2em; position: center;">Hello <%= username %></h1>
                     <hr style="width:90%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
 
                     <table class="min-w-full divide-y divide-gray-200">
                         <thead>
                         <tr>
                             <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Ongoing task
+                            Team Name
                             </th>
                             <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Deadline
-                            </th>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Progress
+                            On Going Tasks
                             </th>
                             <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
                             Actions
@@ -74,16 +72,38 @@
                             <th class="px-6 py-3 bg-gray-50"></th>
                         </tr>
                         </thead>
-
+                        <tbody>
+                            <% for(let i=0; i<10; i++){  %>
+                                <tr>
+                                    <td class="px-6 py-4 whitespace-no-wrap">
+                                    <div class="flex items-center">
+                                        <div class="ml-4">
+                                        <div class="text-sm leading-5 font-medium text-gray-900">
+                                            Team
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap">
+                                    <div class="text-sm leading-5 text-gray-900">19/10</div>
+                                    </td>
+                                    <td class="px-6 py-4 whitespace-no-wrap text-right text-sm leading-5 font-medium">
+                                    <form id="packagedetails<%= i %>" action="/packagedetails" method="GET">
+                                    <a href="#" onclick="document.getElementById('Team').submit()" type="submit" class="text-indigo-600 hover:text-indigo-900">View</a>
+                                  </form>
+                                    </td>
+                                </tr>
+                                <% } %>
+                        </tbody>
                         
                         
                     </table>
-
-                    <input type="submit" class="submit" value="Create new team"> 
-                    
-                    <input type="submit" class="submit" value="Join Existing team">
-                    
                 </div>
+                    <a href="/createteam"><button type="submit"class="submit"> Create new team</button></a>
+                    
+                    <button type="submit" class="submit" >Join Existing team</button>
+                    
+                
                 
             </div>
         </div>

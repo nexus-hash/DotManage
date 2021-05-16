@@ -22,13 +22,16 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.set('trust proxy', 1);
 
 app.use(session({
+  rolling:true,
 cookie:{
+
     secure: true,
-    maxAge:60000
+    maxAge:6000
        },
 secret: 'secret',
-saveUninitialized: true,
-resave: false
+saveUninitialized: false,
+resave: true
+
 }));
 
 app.use(function(req,res,next){
