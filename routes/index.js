@@ -155,7 +155,6 @@ router.post('/login',function(req,res,next){
             req.session.username=response.rows[0].uname.toString();
             req.session.userid=response.rows[0].uid.toString();
             req.session.useremail=req.body.email;
-
             res.redirect('/dashboard');
           }else{
             res.redirect('/invalid-credentials')
@@ -263,7 +262,7 @@ router.get('/costestimated',function(req,res,next){
 })
 
 router.get('/costestimation',function(req,res,next){
-  res.render('CostEstimate')
+    res.render('CostEstimate')
 })
 
 router.get('/logout',function(req,res,next){
