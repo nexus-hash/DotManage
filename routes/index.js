@@ -216,6 +216,7 @@ router.get('/costestimated',function(req,res,next){
   try {
     var val =req.query.ProjectType.toString()
     var type = ProjectType.indexOf(val);
+    console.log(req.query)
     var a = staticValues[type][0];
     var b = staticValues[type][1];
     var c = staticValues[type][2];
@@ -254,7 +255,7 @@ router.get('/costestimated',function(req,res,next){
       scheduledTimeD: scheduledTime
     }
     console.log(results);
-    res.render('CostEstimationoutput',results)
+    res.send(results)
   } catch (error) {
     console.log(error)
   }
