@@ -75,11 +75,11 @@ router.get('/user-not-found-signup',function(req,res,next){
   res.render("UserSignup.ejs")
 })
 
-router.post('/signup',function(req,res,next){
+router.post('/signup',function (req,res,next){
   if(req.session.username){
     res.redirect('/dashboard');
   }else{
-  await pool.connect();
+   pool.connect();
   pool.query('select count(uemail) from users where uemail = $1',[req.body.email],(err,resp)=>{
     if(err){
       res.redirect('/error');
@@ -136,12 +136,12 @@ router.get('/invalid-credentials',function(req,res,next){
   res.render('Login_invalid.ejs')
 })
 
-router.post('/login',function(req,res,next){
+router.post('/login',function (req,res,next){
   if(req.session.username){
     res.redirect("/dashboard");
   }
   else{
-  await pool.connect();
+   pool.connect();
   pool.query('select count(*) from users where uemail=$1',[req.body.email],function(err,resp){
     if(err){
       res.redirect('/error')
