@@ -30,7 +30,7 @@ cookie:{
        },
 secret: 'secret',
 saveUninitialized: false,
-resave: true
+resave: true,
 
 }));
 
