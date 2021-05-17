@@ -79,7 +79,7 @@ router.post('/signup',function(req,res,next){
   if(req.session.username){
     res.redirect('/dashboard');
   }else{
-  pool.connect();
+  await pool.connect();
   pool.query('select count(uemail) from users where uemail = $1',[req.body.email],(err,resp)=>{
     if(err){
       res.redirect('/error');
@@ -105,7 +105,6 @@ router.post('/signup',function(req,res,next){
                 }else{
                    sendEmail(req.body.email,"Welcome to Dotmanage App","<h2>Sigup was sucessful.</h2>");
                   res.redirect('/login')
-                  pool.end()
                 }
               })
             }
@@ -142,7 +141,7 @@ router.post('/login',function(req,res,next){
     res.redirect("/dashboard");
   }
   else{
-  pool.connect()
+  await pool.connect();
   pool.query('select count(*) from users where uemail=$1',[req.body.email],function(err,resp){
     if(err){
       res.redirect('/error')
@@ -231,21 +230,17 @@ router.get('/costestimated',function(req,res,next){
     eaf=eaf*RequiredSoftware[scale.indexOf(updated.Requirements.toString())]
     eaf=eaf*SizeofProjectDatabase[scale3.indexOf(updated.Database.toString())]
     eaf=eaf*ComplexityofTheProject[scale.indexOf(updated.Complexity.toString())]
-    console.log(eaf);
-    console.log(RequiredSoftware[scale.indexOf(updated.Requirements.toString())])
 
     eaf=eaf*PerformanceRestriction[scale2.indexOf(updated.Performance.toString())]
     eaf=eaf*MemoryRestriction[scale2.indexOf(updated.Memory.toString())]
     eaf=eaf*VirtualMachineEnvironment[scale3.indexOf(updated.vmenvironment.toString())]
     eaf=eaf*RequiredTurnaboutTime[scale3.indexOf(updated.TurnaboutTime.toString())]
-    console.log(eaf);
 
     eaf=eaf*AnalysisCapability[scale.indexOf(updated.AnalysisCapability.toString())]
     eaf=eaf*ApplicationExperience[scale.indexOf(updated.AppExperience.toString())]
     eaf=eaf*SoftwareEngineerCapability[scale.indexOf(updated.SoftwareCapability.toString())]
     eaf=eaf*VirtualMachineExperience[scale.indexOf(updated.vmexperience.toString())]
     eaf=eaf*ProgrammingExperience[scale.indexOf(updated.ProgrammingExperience.toString())]
-    console.log(eaf);
 
     eaf=eaf*SoftwareEngineeringMethods[scale.indexOf(updated.sem.toString())]
     eaf=eaf*UseofSoftwareTools[scale.indexOf(updated.ust.toString())]
@@ -253,8 +248,6 @@ router.get('/costestimated',function(req,res,next){
     console.log(eaf);
     var effort=(a*Math.pow(req.query.kloc,b)*eaf).toFixed(2)
     var scheduledTime = (c*Math.pow(effort,d)).toFixed(2);
-    console.log(effort)
-    console.log(scheduledTime)
     var results = {
       effortE: effort,
       scheduledTimeD: scheduledTime
