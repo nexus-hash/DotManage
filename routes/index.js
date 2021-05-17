@@ -196,7 +196,7 @@ router.get('/dashboard',function(req,res,next){
       "username":req.session.username
     }
     console.log(data)
-    res.render("userlanding",data);
+    res.render("unavailable",data);
   }
   
 })
