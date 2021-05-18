@@ -395,4 +395,12 @@ router.get('/logout', function (req, res, next) {
   res.redirect('/login')
 })
 
+router.get('/costestimation',function(req,res,next){
+  res.render("CostEstimationInput")
+})
+
+router.get('/test',function(req,res,next){
+  res.render("test.ejs")
+})
+
 module.exports = router;
