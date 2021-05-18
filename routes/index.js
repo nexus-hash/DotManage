@@ -8,7 +8,8 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 const pool = require('./db')
 const session = require('cookie-session');
 const sha256 = require('sha256')
-const transport = require('./send-mail')
+const transport = require('./send-mail');
+const { sendMail } = require('./send-mail');
 
 
 
@@ -354,6 +355,7 @@ router.post('/changepassword',function(req,res,next)
     if(err){
       res.redirect('/error')
     }else{
+      localStorage.clear();
       res.redirect('/passwordupdated')
     }
   })}else{
