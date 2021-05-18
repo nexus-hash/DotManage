@@ -131,7 +131,7 @@ router.get('/usernameunavailable', function (req, res, next) {
 
 router.get('/jointeam',function(req,res,next){
   if(req.session.username){
-  res.render('jointeam',message)
+  res.render('jointeam')
 }else{
     res.redirect('/login');
   }
