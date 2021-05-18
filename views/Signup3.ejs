@@ -1,0 +1,72 @@
+<!-- Login Page -->
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Signup Page</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/dotmanage.css">
+
+
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="flex">
+        <div class="bodypage">
+            <center>
+                <h1 id="loginhead" style="font-size:3vw"> DotManage </h1>
+                <br>
+                <div class="logindiv"><br>
+                    <h2 id="loglab" style="font-size:2vw">Signup</h2><br><br>
+                    <form action="/signup" method="POST">
+                        <input name="username" id="username" class="logintextbox" type="text" placeholder="UserName"
+                            required><br><br><br>
+                        <input name="email" id="email" class="logintextbox" type="email" placeholder="Email-ID"
+                            required></input><br><span class="error-msg" id="errormail"></span><br><br>
+                        <input name="password" id="password" class="logintextbox" type="password" placeholder="Password"
+                            onkeyup="check();" required><br><span id='strengthmessage'></span><br><br>
+                        <input name="cpassword" id="cpassword" class="logintextbox" type="password"
+                            placeholder="Confirm Password" onkeyup="check();" required><br><span
+                            id='message'></span><br>
+                        <p>
+                            <button class="loginbutton" type="submit" id="submitbutton"> Create Account </button> 
+                    </form><br>
+                    <p size="10%" style="color: white;"><strong>Existing Account ?</strong> <a href="/login"><button
+                                class="loginbutton">Login</button></a></p>
+            </center>
+            <center>
+                <br>
+            </center>
+        </div>
+    </div>
+    </div>
+    <script type="text/javascript" lang="javascript">
+        var check = function () {
+            const strength = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).{8,}$/;
+            if (strength.test(document.getElementById('password').value)) {
+                document.getElementById('strengthmessage').innerHTML = '';
+                document.getElementById('submitbutton').disabled = false
+            }
+            else {
+                document.getElementById('strengthmessage').style.color = 'red';
+                document.getElementById('strengthmessage').innerHTML = 'Password is weak';
+                document.getElementById('submitbutton').disabled = true
+            }
+            if (document.getElementById('password').value ==
+                document.getElementById('cpassword').value) {
+                document.getElementById('message').style.color = 'green';
+                document.getElementById('message').innerHTML = '';
+            } else {
+                document.getElementById('message').style.color = 'red';
+                document.getElementById('message').innerHTML = 'not matching';
+                document.getElementById('submitbutton').disabled = true
+            }
+        }
+    </script>
+</body>
+
+</html>

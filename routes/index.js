@@ -8,7 +8,8 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 const pool = require('./db')
 const session = require('cookie-session');
 const sha256 = require('sha256')
-const transport = require('./send-mail')
+const transport = require('./send-mail');
+const { sendMail } = require('./send-mail');
 
 
 
@@ -132,7 +133,10 @@ router.get('/login', function (req, res, next) {
   if (req.session.username) {
     res.redirect('/dashboard')
   } else {
-    res.render('Login.ejs');
+    var data={
+      message:""
+    }
+    res.render('Login.ejs',data);
   }
 })
 
@@ -204,7 +208,7 @@ router.get('/dashboard', function (req, res, next) {
       "username": req.session.username
     }
     console.log(data)
-    res.render("unavailable", data);
+    res.render("userlanding", data);
   }
 
 })
@@ -294,7 +298,7 @@ router.post('/forgotpassword', function (req, res, next) {
       myHour = myHour + (Hours * 60 * 60 * 1000)
       console.log(myHour)
       localStorage.setItem("Time", myHour);
-      var message = '<h2>Use this link to reset your password</h2><h4>This link will expire after 30 mins.</h4><a href="' + link + '"><button type="submit" style="border-radius: 5px;background-color: rgba(73,115,162,1) ;width: 20%;position: center;margin: 3%;padding: 1%;color: aliceblue;" >Join Existing team</button></a>';
+      var message = '<h2>Use this link to reset your password</h2><h4>This link will expire after 30 mins.</h4><a href="' + link + '"><button type="submit" style="border-radius: 5px;background-color: rgba(73,115,162,1) ;width: 20%;position: center;margin: 3%;padding: 1%;color: aliceblue;" >Reset Password</button></a>';
       console.log(message);
       sendEmail(req.body.email, "Forgot Password", message)
       res.redirect('/checkmail')
@@ -332,6 +336,7 @@ router.get('/changepassword', function (req, res, next) {
           email:req.query.email,
           token:req.query.token
         }
+        req.session.passwordChange = true;
         res.render('changepassword',data);
       } else {
         res.redirect('/invalidlink');
@@ -354,6 +359,7 @@ router.post('/changepassword',function(req,res,next)
     if(err){
       res.redirect('/error')
     }else{
+      localStorage.clear();
       res.redirect('/passwordupdated')
     }
   })}else{
@@ -363,18 +369,19 @@ router.post('/changepassword',function(req,res,next)
 })
 
 router.get('/passwordupdated',function(req,res,next){
-  if(req.session.username){
-    res.redirect('/dashboard')
+  if(!req.session.passwordChange){
+    res.redirect('/login')
   }else{
+    req.session.passwordChange=null;
     res.render('passwordupdated')
   }
 })
 
-router.get('/expire', function (req, res, next) {
-
+router.get('/expired', function (req, res, next) {
+  res.render('expired')
 })
 router.get('/invalidlink', function (req, res, next) {
-
+  res.render('Signup2')
 })
 
 router.get('/logout', function (req, res, next) {
