@@ -295,7 +295,7 @@ router.post('/forgotpassword', function (req, res, next) {
       myHour = myHour + (Hours * 60 * 60 * 1000)
       console.log(myHour)
       localStorage.setItem("Time", myHour);
-      var message = '<h2>Use this link to reset your password</h2><h4>This link will expire after 30 mins.</h4><a href="' + link + '"><button type="submit" style="border-radius: 5px;background-color: rgba(73,115,162,1) ;width: 20%;position: center;margin: 3%;padding: 1%;color: aliceblue;" >Join Existing team</button></a>';
+      var message = '<h2>Use this link to reset your password</h2><h4>This link will expire after 30 mins.</h4><a href="' + link + '"><button type="submit" style="border-radius: 5px;background-color: rgba(73,115,162,1) ;width: 20%;position: center;margin: 3%;padding: 1%;color: aliceblue;" >Reset Password</button></a>';
       console.log(message);
       sendEmail(req.body.email, "Forgot Password", message)
       res.redirect('/checkmail')
