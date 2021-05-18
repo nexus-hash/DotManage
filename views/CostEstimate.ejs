@@ -77,12 +77,13 @@
 
             <div style="flex-grow: 1 ;width: 80%;height: 100%; " class="formbody">
 
-                <div style="flex-grow: 1 ;width: 100%;height: 100%; padding: 5%; overflow:auto;">
+                <div class="grid "style="flex-grow: 1 ;width: 100%;height: 100%; padding: 5%; overflow:auto;">
                     <h1 style="font-size: 1.5em; ">Estimate Cost</h1>
                     <hr
                         style="width:100%; text-align:left; background-color: gray; height:2px; margin-bottom: 2%;">
 
                     <form action="/costestimated" method="GET">
+                        <div class="grid grid-cols-2 gap-6">
                         <h2>
                             <label>ProjectType: </label><select
                                 class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
@@ -97,17 +98,16 @@
                                 class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 rounded "
                                 required>
                         </h2>
-                        <br>
                         <p class="text-xs pr-3 text-opacity-75" style="color: gray;">
                             <label style="color: red;">Note: </label>
                             
                             Here all values are by default considered nominal if nothing else is specified.
                         </p >
-                        <h2>Product Parameters</h2>
+                        <p></p><h2>Product Parameters</h2><p></p>
                         
-                        <h3>
+                            <h3>
                             <label class="block text-sm font-medium text-gray-700">Requirements: </label><select
-                            class="mt-1 block w-1/3 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 id="Requirements" name="Requirements">
                                 <option class="pt-6">None</option>
                                 <option>Very-Low</option>
@@ -116,9 +116,10 @@
                                 <option>High</option>
                                 <option>Very-High</option>
                             </select>
-                            <div class="inline">
+                        </h3>
+                            <h3>
                             <label class="block text-sm font-medium text-gray-700">Database Size: </label><select
-                            class="mt-1 block w-1/3 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                             id="Database" name="Database" required>
                                 <option class="pt-6">None</option>
                                 <option>Low</option>
@@ -126,7 +127,6 @@
                                 <option>High</option>
                                 <option>Very-High</option>
                             </select>
-                            </div>
                         </h3>
                         <h3>
                             <label>Complexity : </label><select
@@ -283,7 +283,10 @@
                         </h3>
 
                         <input class="submit" type="submit" id="submitbutton" value="Get Cost"></input>
-                    </form><br>
+
+                    </form>
+                </div>
+                    <br>
                     <a href='/dashboard'><button style="border-radius: 5px;
                         background-color: rgba(73,115,162,1) ;
                         width: 20%;

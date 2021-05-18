@@ -129,14 +129,19 @@ router.get('/usernameunavailable', function (req, res, next) {
   res.render('usernameunavailable');
 })
 
+router.get('/jointeam',function(req,res,next){
+  if(req.session.username){
+  res.render('jointeam',message)
+}else{
+    res.redirect('/login');
+  }
+})
+
 router.get('/login', function (req, res, next) {
   if (req.session.username) {
     res.redirect('/dashboard')
   } else {
-    var data={
-      message:""
-    }
-    res.render('Login.ejs',data);
+    res.render('Login.ejs');
   }
 })
 
