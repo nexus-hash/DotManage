@@ -86,18 +86,18 @@
                         <div class="grid grid-cols-2 gap-6">
                         <h2>
                             <label>ProjectType: </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="ProjectType" name="ProjectType" required>
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="ProjectType" name="ProjectType" required>
                                 <option class="pt-6">Organic</option>
                                 <option>Semi-Detached</option>
                                 <option>Embeded</option>
                             </select>
                         </h2>
+                        <br>
                         <h2>
                             Expected number of Lines of Code in Kilo lines<input type="number" id="kloc" name="kloc"
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 rounded "
-                                required>
+                            class="mt-1 inline-block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                required>
                         </h2>
+                        <br>
                         <p class="text-xs pr-3 text-opacity-75" style="color: gray;">
                             <label style="color: red;">Note: </label>
                             
@@ -129,9 +129,8 @@
                             </select>
                         </h3>
                         <h3>
-                            <label>Complexity : </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="Complexity" name="Complexity" required>
+                            <label class="block text-sm font-medium text-gray-700">Complexity : </label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="Complexity" name="Complexity" required>
                                 <option class="pt-6">None</option>
                                 <option>Very-Low</option>
                                 <option>Low</option>
@@ -140,12 +139,13 @@
                                 <option>Very-High</option>
                             </select>
                         </h3>
+                        <br>
 
                         <h2>Hardware Parameters</h2>
+                        <br>
                         <h3>
-                            <label>Performance Restriction:</label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="Performance" name="Performance" required>
+                            <label class="block text-sm font-medium text-gray-700">Performance Restriction:</label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="Performance" name="Performance" required>
                                 <option class="pt-6">None</option>
                                 <option>Nominal</option>
                                 <option>High</option>
@@ -153,9 +153,8 @@
                             </select>
                         </h3>
                         <h3>
-                            <label>Memory Restriction: </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="Memory" name="Memory" required>
+                            <label class="block text-sm font-medium text-gray-700">Memory Restriction: </label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="Memory" name="Memory" required>
                                 <option class="pt-6">None</option>
                                 <option>Nominal</option>
                                 <option>High</option>
@@ -163,9 +162,8 @@
                             </select>
                         </h3>
                         <h3>
-                            <label>VM Environment :</label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="vmenvironment" name="vmenvironment" required>
+                            <label class="block text-sm font-medium text-gray-700">VM Environment :</label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="vmenvironment" name="vmenvironment" required>
                                 <option class="pt-6">None</option>
                                 <option>Low</option>
                                 <option>Nominal</option>
@@ -174,9 +172,8 @@
                             </select>
                         </h3>
                         <h3>
-                            <label>Turnabout Time : </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="TurnaboutTime" name="TurnaboutTime" required>
+                            <label class="block text-sm font-medium text-gray-700">Turnabout Time : </label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="TurnaboutTime" name="TurnaboutTime" required>
                                 <option class="pt-6">None</option>
                                 <option>Low</option>
                                 <option>Nominal</option>
@@ -184,12 +181,12 @@
                                 <option>Very-High</option>
                             </select>
                         </h3>
-
+                        
                         <h2>Personnel Parameters</h2>
+                        <br>
                         <h3>
-                            <label>Analysis Capability : </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="AnalysisCapability" name="AnalysisCapability" required>
+                            <label class="block text-sm font-medium text-gray-700">Analysis Capability : </label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="AnalysisCapability" name="AnalysisCapability" required>
                                 <option class="pt-6">None</option>
                                 <option>Very-Low</option>
                                 <option>Low</option>
@@ -199,9 +196,8 @@
                             </select>
                         </h3>
                         <h3>
-                            <label>App Experience : </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="AppExperience" name="AppExperience" required>
+                            <label class="block text-sm font-medium text-gray-700">App Experience : </label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="AppExperience" name="AppExperience" required>
                                 <option class="pt-6">None</option>
                                 <option>Very-Low</option>
                                 <option>Low</option>
@@ -211,9 +207,8 @@
                             </select>
                         </h3>
                         <h3>
-                            <label>Software Capability : </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="SoftwareCapability" name="SoftwareCapability" required>
+                            <label class="block text-sm font-medium text-gray-700">Software Capability : </label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="SoftwareCapability" name="SoftwareCapability" required>
                                 <option class="pt-6">None</option>
                                 <option>Very-Low</option>
                                 <option>Low</option>
@@ -223,9 +218,8 @@
                             </select>
                         </h3>
                         <h3>
-                            <label>VM Experience : </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="vmexperience" name="vmexperience" required>
+                            <label class="block text-sm font-medium text-gray-700">VM Experience : </label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="vmexperience" name="vmexperience" required>
                                 <option class="pt-6">None</option>
                                 <option>Very-Low</option>
                                 <option>Low</option>
@@ -233,10 +227,10 @@
                                 <option>High</option>
                             </select>
                         </h3>
+                    
                         <h3>
-                            <label>Programming Experience : </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="ProgrammingExperience" name="ProgrammingExperience" required>
+                            <label class="block text-sm font-medium text-gray-700">Programming Experience : </label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="ProgrammingExperience" name="ProgrammingExperience" required>
                                 <option class="pt-6">None</option>
                                 <option>Very-Low</option>
                                 <option>Low</option>
@@ -244,11 +238,12 @@
                                 <option>High</option>
                             </select>
                         </h3>
+                        <br>
                         <h2>Project Parameters</h2>
+                        <br>
                         <h3>
-                            <label>Software Engineering methods: </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="sem" name="sem" required>
+                            <label class="block text-sm font-medium text-gray-700">Software Engineering methods: </label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="sem" name="sem" required>
                                 <option class="pt-6">None</option>
                                 <option>Very-Low</option>
                                 <option>Low</option>
@@ -258,9 +253,8 @@
                             </select>
                         </h3>
                         <h3>
-                            <label>Use of software tools: </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="ust" name="ust" required>
+                            <label class="block text-sm font-medium text-gray-700">Use of software tools: </label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="ust" name="ust" required>
                                 <option class="pt-6">None</option>
                                 <option>Very-Low</option>
                                 <option>Low</option>
@@ -270,9 +264,8 @@
                             </select>
                         </h3>
                         <h3>
-                            <label>Development Time: </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="DevelopmentTime" name="DevelopmentTime" required>
+                            <label class="block text-sm font-medium text-gray-700">Development Time: </label><select
+                            class="mt-1 block w-4/6 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"                                id="DevelopmentTime" name="DevelopmentTime" required>
                                 <option class="pt-6">None</option>
                                 <option>Very-Low</option>
                                 <option>Low</option>
@@ -281,6 +274,7 @@
                                 <option>Very-High</option>
                             </select>
                         </h3>
+                        <br>
 
                         <input class="submit" type="submit" id="submitbutton" value="Get Cost"></input>
 
