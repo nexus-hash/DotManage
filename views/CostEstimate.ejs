@@ -19,14 +19,11 @@
             text-decoration: underline;
         }
 
-        h3 {
-            padding: 1%;
-            margin-left: 1.5%;
-        }
-
         select {
             width: 25%;
-            margin: 3%;
+            margin-top: 2%;
+            margin-bottom: 2%;
+            margin-left: .5%;
         }
 
         input {
@@ -83,7 +80,7 @@
                 <div style="flex-grow: 1 ;width: 100%;height: 100%; padding: 5%; overflow:auto;">
                     <h1 style="font-size: 1.5em; ">Estimate Cost</h1>
                     <hr
-                        style="width:100%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
+                        style="width:100%; text-align:left; background-color: gray; height:2px; margin-bottom: 2%;">
 
                     <form action="/costestimated" method="GET">
                         <h2>
@@ -109,8 +106,8 @@
                         <h2>Product Parameters</h2>
                         
                         <h3>
-                            <label>Requirements: </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
+                            <label class="block text-sm font-medium text-gray-700">Requirements: </label><select
+                            class="mt-1 block w-1/3 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
                                 id="Requirements" name="Requirements">
                                 <option class="pt-6">None</option>
                                 <option>Very-Low</option>
@@ -119,18 +116,17 @@
                                 <option>High</option>
                                 <option>Very-High</option>
                             </select>
-
-                        </h3>
-                        <h3>
-                            <label>Database Size: </label><select
-                                class="bg-white text-gray-600 md:text-xs border-none h-10 inline-block py-3 pl-3 pr-9 rounded leading-tight w-80"
-                                id="Database" name="Database" required>
+                            <div class="inline">
+                            <label class="block text-sm font-medium text-gray-700">Database Size: </label><select
+                            class="mt-1 block w-1/3 py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+                            id="Database" name="Database" required>
                                 <option class="pt-6">None</option>
                                 <option>Low</option>
                                 <option>Nominal</option>
                                 <option>High</option>
                                 <option>Very-High</option>
                             </select>
+                            </div>
                         </h3>
                         <h3>
                             <label>Complexity : </label><select

@@ -4,43 +4,64 @@
 <html>
 
 <head>
-    <title>Login Page</title>
+    <title>Login</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <link rel="stylesheet" href="/stylesheets/dotmanage.css">
-
-
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://kit.fontawesome.com/d1f9ff8b6d.js" crossorigin="anonymous"></script>
     <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="bodypage">
-        <h1 id="loginhead" style="text-align:center" style="font-size:3vw"> DotManage </h1>
-        <br>
-        <div class="flex">
-            <div class="logindiv"><br>
-                <center>
-                    <h2 id="loglab" style="font-size:2vw">Login</h2>
-                    <form action="/login" method="POST">
-                        <input id="email" class="logintextbox" name="email" required type="email"
-                            placeholder="Email"><br><br>
-                        <input id=" password" class="logintextbox" type="password" name="password" required
-                            placeholder="Password">
-                        <p>
-                            <button class="loginbutton" id="submitbutton" type="submit"> Login </button> </a>
-                    </form>
-                    </h4>
-                </center>
-                <center>
-                    <br>
+    <div class="min-h-screen bg-dotmanage">
+        <div style="width: 100%;height: 8%;background-color: rgba(73,115,162,1);position: fixed;" class="object-top">
+           
 
-                    <p size="10%" style="color: white;">Do not have an account? <a href="/signup"><button class="loginbutton">Signup</button></a>
-                        <br><br>
-                        <a href="/forgotpassword" style="color: aliceblue;">Forgot Password</a>
-                    </center>
+            <p class="text-base md:text-3xl " style="padding-left:.8%; padding-top:.9%; color: white; text-align: left;">Dot Manage</p>
+        </div>
+
+        <div class="flex md:flex-row" style="position: fixed;top: 8%;width: 100%;height: 92%;">
+  
+
+            <div style="flex-grow: 1 ;width: 100%;height: 85%; padding: 0%;" class="formbody">
+                <div class="flex flex-col items-center justify-center formbody h-screen select-none">
+                    <div class="flex flex-col -mt-32 bg-white px-4 sm:px-6 md:px-8 lg:px-10 py-8 rounded-xl shadow-2xl w-full max-w-md  border-l-4 border-purple-600" style="border-color: rgba(73,115,162,1);">
+                        <div class="font-medium self-center text-xl sm:text-xl w-60 text-center  shadow-2xl p-6 rounded-full text-white" style="background-color: rgba(73,115,162,1);">Login</div>
+                        <div class="mt-5">
+                            <form method="POST" action="/login">  
+                                <div class="flex flex-wrap mb-3">
+                                    <div class="w-full text-left">
+                                        <a href="/signup" class="text-blue-900 text-lg"><small><%= message %></small></a>
+                                    </div>
+                                    
+                                </div>
+                                <div class="relative w-full mb-3">
+                                    <input type="email" name="email" class="border-0 p-4 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" placeholder="Email" name="email" id="email"style="transition: all 0.15s ease 0s;" required/>
+                                    <small class="p-2 text-red-500">* Email</small>
+                                </div>
+                                <div class="relative w-full mb-3">
+                                    <input type="password" name="password" class="border-0 p-4 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" placeholder="Password" name="password" id="password"style="transition: all 0.15s ease 0s;" required/>
+                                    <small class="p-2 text-red-500">* Password</small>
+                                </div>
+                                <div class="text-center mt-6">
+                                    <button type="submit" style="background-color: rgba(73,115,162,1);" class="p-3 rounded-lg  outline-none text-white shadow w-32 justify-center hover:bg-gray-300" >Login</button>
+                                </div>  
+                                <div class="flex flex-wrap mt-6">
+                                    <div class="w-1/2 text-left">
+                                        <a href="/signup" class="text-blue-900 text-xl"><small>Sign Up</small></a>
+                                    </div>
+                                    <div class="w-1/2 text-right">
+                                        <a href="/forgotpassword" class="text-blue-900 text-xl"><small>Forgot Password</small></a>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         </div>
     </div>

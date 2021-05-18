@@ -133,7 +133,10 @@ router.get('/login', function (req, res, next) {
   if (req.session.username) {
     res.redirect('/dashboard')
   } else {
-    res.render('Login.ejs');
+    var data={
+      message:""
+    }
+    res.render('Login.ejs',data);
   }
 })
 
@@ -205,7 +208,7 @@ router.get('/dashboard', function (req, res, next) {
       "username": req.session.username
     }
     console.log(data)
-    res.render("unavailable", data);
+    res.render("userlanding", data);
   }
 
 })
@@ -333,6 +336,7 @@ router.get('/changepassword', function (req, res, next) {
           email:req.query.email,
           token:req.query.token
         }
+        req.session.passwordChange = true;
         res.render('changepassword',data);
       } else {
         res.redirect('/invalidlink');
@@ -365,18 +369,19 @@ router.post('/changepassword',function(req,res,next)
 })
 
 router.get('/passwordupdated',function(req,res,next){
-  if(req.session.username){
-    res.redirect('/dashboard')
+  if(!req.session.passwordChange){
+    res.redirect('/login')
   }else{
+    req.session.passwordChange=null;
     res.render('passwordupdated')
   }
 })
 
-router.get('/expire', function (req, res, next) {
-
+router.get('/expired', function (req, res, next) {
+  res.render('expired')
 })
 router.get('/invalidlink', function (req, res, next) {
-
+  res.render('Signup2')
 })
 
 router.get('/logout', function (req, res, next) {
