@@ -131,7 +131,7 @@ router.get('/usernameunavailable', function (req, res, next) {
 
 router.get('/jointeam',function(req,res,next){
   if(req.session.username){
-  res.render('jointeam',message)
+  res.render('jointeam')
 }else{
     res.redirect('/login');
   }
@@ -270,7 +270,7 @@ router.get('/costestimated', function (req, res, next) {
       scheduledTimeD: scheduledTime
     }
     console.log(results);
-    res.send(results)
+    res.render('CostEstimationoutput',results);
   } catch (error) {
     console.log(error)
   }
@@ -393,6 +393,14 @@ router.get('/logout', function (req, res, next) {
   req.session.username = null;
   req.session.destroy
   res.redirect('/login')
+})
+
+router.get('/costestimation',function(req,res,next){
+  res.render("CostEstimationInput")
+})
+
+router.get('/test',function(req,res,next){
+  res.render("test.ejs")
 })
 
 module.exports = router;
