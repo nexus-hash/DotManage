@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>New Task</title>
+    <title>Team <%= tname %></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/dotmanage.css">
@@ -20,6 +20,7 @@
             <div style="padding-right: 1%;padding-top: .9%;">
                 <button class="md:text-lg btn logout" style="float: right;">Logout</button>
             </div>
+            
 
             <p class="text-base md:text-3xl " style="padding-left:.8%; padding-top:.1%; color: white; text-align: left;">Dot Manage</p>
         </div>
@@ -28,17 +29,26 @@
 
             <div href="" style="width: 15%;height: 100%;background-color: white;" class="">
 
-                <a href="/teamlanding">
+                <a href="/dashboard">
                     <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
                     <i style="color: black; float: left; margin-right: 10px;" class="fas fa-users"></i> <p style="color: black; ">View Teams</p>
                     </div>
                 </a>
 
-                <a href="/costestimate">
+                <a href="/costestimation">
                     <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
                         <i style="color: black; float: left; margin-right: 10px;" class="fas fa-money-bill-alt"></i><p style="color: black;">Estimate Cost</p>
                     </div>
                 </a>
+                <form method="GET" id="teams<%= teamid %>" action="/settings">
+                    <input type="hidden" name="teamid"id="teamid"value="<%= teamid %>">
+                <a href="#" onclick="document.getElementById('teams<%= teamid %>').submit()" type="submit" >
+                    <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
+                        
+                            
+                        <i style="color: black; float: left; margin-right: 8px;" class="fas fa-user-cog"></i><p style="color: black;">Team Settings</p>
+                        </div>
+                </a></form>
                 
             </div>
 
@@ -47,7 +57,7 @@
             <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;" class="formbody">
 
                 <div style="flex-grow: 1 ;width: 90%;height: 100%; padding: 5%; overflow:auto;">
-                    <h1 style="font-size: 1.2em; position: center;">Team Name</h1>
+                    <h1 style="font-size: 1.2em; position: center;"><%= teamid %></h1>
                     <hr style="width:90%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
 
                     <table class="min-w-full divide-y divide-gray-200">
