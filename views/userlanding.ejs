@@ -101,8 +101,10 @@
                                         </div>
                                         </td>
                                     <td class="px-6 py-3 whitespace-no-wrap items-end text-sm leading-5 font-medium">
-                                    <form id="packagedetails<%= i %>" action="/teamdashboard" method="GET">
-                                    <a href="#" onclick="document.getElementById('Team').submit()" type="submit" class="ml-28 text-indigo-600 text-right hover:underline hover:text-indigo-900">View</a>
+                                    <form id="teams<%= i %>"action="/team" method="GET">
+                                        <input id="tid" name="tid" type="hidden" value="<%= teams[i].teamid %>">
+                                        <input id="tname" name="tname" type="hidden" value="<%= teams[i].tname %>">
+                                    <a href="/team" onclick="document.getElementById('teams<%= i %>').submit()" type="submit" class="ml-28 text-indigo-600 text-right hover:underline hover:text-indigo-900">View</a>
                                   </form>
                                     </td>
                                 </tr>

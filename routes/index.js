@@ -335,8 +335,12 @@ router.get('/unavailable', function (req, res, next) {
 })
 
 router.get('/team', function (req, res, next) {
-  //TODO: GET Task list currently active in the Team and send the json data
-  res.render("teamlanding")
+  console.log(req.query);
+  res.render("teamlanding",{tname: req.query.tname,teamid: req.query.tid});
+})
+
+router.get("/settings",function(req,res,next){
+  console.log(req.query);
 })
 
 router.get('/costestimated', function (req, res, next) {
