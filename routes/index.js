@@ -11,7 +11,27 @@ const sha256 = require('sha256')
 const transport = require('./send-mail');
 const { sendMail } = require('./send-mail');
 
+function makeid(length=4) {
+  var result           = [];
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+    result.push(characters.charAt(Math.floor(Math.random() * 
+charactersLength)));
+ }
+ return result.join('');
+}
 
+function makelid(length=5) {
+  var result           = [];
+  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
+  var charactersLength = characters.length;
+  for ( var i = 0; i < length; i++ ) {
+    result.push(characters.charAt(Math.floor(Math.random() * 
+charactersLength)));
+ }
+ return result.join('');
+}
 
 function findAndReplace(object, value, replacevalue) {
   for (var x in object) {
@@ -137,6 +157,48 @@ router.get('/jointeam',function(req,res,next){
   }
 })
 
+router.post('/jointeam',function(req,res,next){
+  pool.query("select teamid from team where tcode=$1",[req.body.code],function(err,resp){
+    if(err){
+      res.redirect('/err')
+    }else{
+      if(resp.rowCount!=1){
+        res.send("Invalid Code")
+      }else{
+        pool.query("select count(*) from role where uid=$1 and teamid in (select teamid from team where tcode=$2)",[req.session.userid,req.body.code],function(error,respo){
+          if(error){
+            res.redirect('/err')
+          }else{
+            console.log(respo.rows);
+            if(respo.rows[0].count!=0){
+              res.flash("You are already in the team");
+            }else{
+              pool.query("insert into role (uid,teamid,role) values($1,$2,FALSE)",[req.session.userid,resp.rows[0].teamid],function(errorr,response){
+                if(errorr){
+                  res.redirect('/error')
+                }else{
+                  pool.query("select teamid,tname from team where teamid in(select teamid from role where uid=$1)",[req.session.userid],function(errorr,responses){
+                    if(errorr){
+                      console.log(errorr)
+                    }else{
+                      var data = {
+                        "username": req.session.username,
+                        "teams":responses.rows
+                      }
+                      req.session.data=data;
+                    res.redirect('/dashboard');
+                    }
+                  })
+                }
+              })
+            }
+          }
+        })
+      }
+    }
+  })
+})
+
 router.get('/login', function (req, res, next) {
   if (req.session.username) {
     res.redirect('/dashboard')
@@ -171,6 +233,7 @@ router.post('/login', function (req, res, next) {
               req.session.username = response.rows[0].uname.toString();
               req.session.userid = response.rows[0].uid.toString();
               req.session.useremail = req.body.email;
+              req.session.data=null;
               res.redirect('/dashboard');
             } else {
               res.redirect('/invalid-credentials')
@@ -188,7 +251,42 @@ router.get('/createteam', function (req, res, next) {
 
 router.post('/createteam', function (req, res, next) {
   console.log(req.body);
-  res.redirect('/user');
+  var a=makeid()+'-'+makelid()+'-'+makeid();
+  console.log(req.body);
+  pool.query("insert into team (tcode,tname,tdescription) values ($1,$2,$3)",[a,req.body.tname,req.body.tdes],function(err,resp){
+    if(err){
+      res.redirect('/err');
+    }else{
+      pool.query("select teamid from team where tcode=$1",[a],function(error,respo){
+        if(error){
+          res.redirect(
+            '/error'
+          )
+        }
+      else{
+        console.log(req.session.userid);
+      pool.query("insert into role (role,uid,teamid) values(TRUE,$1,$2)",[req.session.userid,respo.rows[0].teamid],function(erro,respon){
+        if(erro){
+          console.log(erro);
+        }else{
+          pool.query("select teamid,tname from team where teamid in(select teamid from role where uid=$1)",[req.session.userid],function(errorr,response){
+            if(errorr){
+              console.log(errorr)
+            }else{
+              var data = {
+                "username": req.session.username,
+                "teams":response.rows
+              }
+              console.log(data)
+              req.session.data=data;
+            res.redirect('/dashboard');
+            }
+          })
+        }
+      })}
+    })
+    }
+  })
 })
 
 router.get('/test', function (req, res, next) {
@@ -209,11 +307,25 @@ router.get('/dashboard', function (req, res, next) {
   if (!(req.session.username)) {
     res.redirect('/login')
   } else {
-    var data = {
-      "username": req.session.username
-    }
-    console.log(data)
-    res.render("userlanding", data);
+    if((req.session.data)){
+      console.log(req.session.data);
+      res.render("userlanding", req.session.data);
+    }else{
+    pool.query("select teamid,tname from team where teamid in(select teamid from role where uid=$1)",[req.session.userid],function(err,resp){
+      if(err){
+        console.log(err)
+      }else{
+        console.log(resp)
+        var data = {
+          "username": req.session.username,
+          "teams":resp.rows
+        }
+        console.log(data)
+        req.session.data=data;
+      res.render("userlanding", data);
+      }
+    })
+  }
   }
 
 })
