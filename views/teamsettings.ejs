@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title><%= username %> Dashboard</title>
+    <title><%= tname %> Settings </title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/dotmanage.css">
@@ -45,6 +45,7 @@
                     <i style="color: black; float: left; margin-right: 10px;" class="fas fa-users"></i> <p style="color: black; ">View Teams</p>
                     </div>
                 </a>
+
                 <a href="/costestimation">
                     <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
                         <i style="color: black; float: left; margin-right: 10px;" class="fas fa-money-bill-alt"></i><p style="color: black;">Estimate Cost</p>
@@ -57,63 +58,73 @@
 
             <div style="flex-grow: 1 ;width: 85%;height: 92%; padding: 4%;padding-right: 0;padding-top: 0;" class="formbody">
 
-                <div style="flex-grow: 1 ;width: 100%;height: 20%; padding: 5%;overflow:auto;">
-                    <h1 class="text-xl text-center">Hello <%= username %></h1>
+                <div style="flex-grow: 1 ;width: 100%;height: 10%;padding-top: 2%;padding-left: 5%;">
+                    <h1 class="text-xl text-left">Settings</h1>
                     </div>
-                    <% if (teams.length==0){ %>
-                        <div style="flex-grow: 1 ;size: 3%;text-align: center; width: 100%;height: 80%; padding: 5%;padding-top:13%;">No teams joined yet.</div>
-                        <% } else {%>
-                    <div style="flex-grow: 1 ;width: 100%;height: 80%; padding: 5%;padding-top:1%;overflow:auto;">
+                    <div style="flex-grow: 1 ;width: 100%;height: 90%; padding: 5%;padding-top:1%;overflow:auto;">
+                        <div>Manager</div>
                     <table class="min-w-full divide-y divide-gray-200">
-                        <thead>
-                        <tr>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Team Name
-                            </th>
-                            <th class="px-6 py-3 bg-gray-50 text-mid text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            On Going Tasks
-                            </th>
-                            <th class="px-6 py-3 bg-gray-50 text-mid text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Actions
-                            </th>
-                        </tr>
-                        </thead>
                         <tbody class="bg-white min-w-full divide-y-4 divide-green-50">
-                            <% for(let i=0; i<teams.length; i++){  %>
+                            <% for(let i=0; i<users.length; i++){  %>
                                 <tr>
-                                    <td class="px-6 py-3 whitespace-no-wrap">
-                                    <div class=" items-end">
-                                        <div class="ml-4">
-                                        <div class="text-sm leading-5 font-medium text-gray-900">
-                                            <%= teams[i].tname %>
-                                        </div>
-                                        </div>
-                                    </div>
-                                    </td>
+                                <% if(users[i].role) {%>
                                     <td class="px-6 py-3 whitespace-no-wrap">
                                         <div class=" items-end">
-                                            <div class="ml-56">
+                                            <div class="ml-4">
                                             <div class="text-sm leading-5 font-medium text-gray-900">
-                                                19/10
+                                                <%= users[i].uname %>
                                             </div>
                                             </div>
                                         </div>
                                         </td>
-                                    <td class="px-6 py-3 whitespace-no-wrap items-end text-sm leading-5 font-medium">
-                                    <form id="teams<%= i %>"action="/team" method="GET">
-                                        <input id="tid" name="tid" type="hidden" value="<%= teams[i].teamid %>">
-                                        <input id="tname" name="tname" type="hidden" value="<%= teams[i].tname %>">
-                                    <a href="#" onclick="document.getElementById('teams<%= i %>').submit()" type="submit" class="ml-28 text-indigo-600 text-right hover:underline hover:text-indigo-900">View</a>
-                                  </form>
-                                    </td>
+                                        <td class="px-6 py-3 whitespace-no-wrap">
+                                            <div class=" items-start">
+                                                <div class="ml-4">
+                                                <div class="text-sm leading-5 font-medium text-gray-900">
+                                                    <%= users[i].uemail %>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </td>
+                                    <% }} %>
+                                    
                                 </tr>
-                                <% } %>
+                            </tbody>
+                        
+                        
+                        </table>
+                        <div class="min-w-full h-10 pt-3">Members</div>
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <tbody class="bg-white min-w-full divide-y-4 divide-green-50">
+                                    <% for(let i=0; i<users.length; i++){  %>
+                                        <% if(!(users[i].role)) {%>
+                                        <tr>
+                                    <td class="px-6 py-2 ">
+                                    <div class=" items-end">
+                                        <div class="ml-4">
+                                        <div class="text-sm leading-6 font-medium text-gray-900">
+                                            <%= users[i].uname %>
+                                        </div>
+                                        </div>
+                                    </div>
+                                    </td>
+                                    <td class="px-6 py-2 whitespace-no-wrap truncate">
+                                        <div class=" place-items-start">
+                                            <div class="ml-4">
+                                            <div class="text-sm  leading-6 font-medium text-gray-900">
+                                                <%= users[i].uemail %>
+                                            </div>
+                                            </div>
+                                        </div>
+                                        </td>
+                                        
+                                </tr>
+                                <% } }%>
                         </tbody>
                         
                         
                     </table>
                 </div>
-                <% } %>
                     <a href="/createteam"><button type="submit"class="submit"> Create new team</button></a>
                     
                     <a href="/jointeam"><button type="submit" class="submit" >Join Existing team</button></a>
