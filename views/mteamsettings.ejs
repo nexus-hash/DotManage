@@ -60,7 +60,7 @@
 
                 <div style="flex-grow: 1 ;width: 100%;height: 10%;padding-top: 2%;padding-left: 5%;">
                     <h1 class="text-xl text-left inline-block">Settings</h1>
-                    <h1 class="text-xl text-center ml-56 inline-block">Team Joining Code: <%=  %></h1>
+                    
                     </div>
                     <div style="flex-grow: 1 ;width: 100%;height: 90%; padding: 5%;padding-top:1%;overflow:auto;">
                         <div>Manager</div>
@@ -139,10 +139,15 @@
                         
                     </table>
                 </div>
-                    <a href="/createteam"><button type="submit"class="submit"> Create new team</button></a>
+                <form method="POST" action="/refreshcode">
+                    <input type="hidden" value="<%= teamid %>" name="teamid" id="teamid">
+                    <input type="hidden" value="<%= tname %>" name="tname" id="tname">
+                    <a href="/refreshcode"><button type="submit"class="submit">Refresh Code</button></a>
+                    <h1 class="text-sm text-center ml-80 inline-block">Team Joining Code:</h1>
+                    <input class="text-lg text-center ml-1 inline-block p-2 placeholder-gray-400 text-gray-700 bg-white rounded shadow" value="<%= tcode %>" readonly>
+                </form>
                     
-                    <a href="/jointeam"><button type="submit" class="submit" >Join Existing team</button></a>
-                    
+                    <input class="text-lg text-center ml-1 inline-block p-2 placeholder-gray-400 text-gray-700 bg-white rounded shadow" value="<%= tcode %>" readonly>
                     
                 
                 

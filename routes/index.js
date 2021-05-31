@@ -11,6 +11,8 @@ const sha256 = require('sha256')
 const transport = require('./send-mail');
 const { sendMail } = require('./send-mail');
 const e = require('express');
+const url = require('url');
+const { escapeXML } = require('ejs');
 
 function makeid(length=4) {
   var result           = [];
@@ -172,7 +174,7 @@ router.post('/jointeam',function(req,res,next){
           }else{
             console.log(respo.rows);
             if(respo.rows[0].count!=0){
-              res.flash("You are already in the team");
+              res.send("You are already in the team");
             }else{
               pool.query("insert into role (uid,teamid,role) values($1,$2,FALSE)",[req.session.userid,resp.rows[0].teamid],function(errorr,response){
                 if(errorr){
@@ -365,7 +367,16 @@ router.get("/forcingentry",function(req,res,next){
 
 router.get("/settings",function(req,res,next){
   pool.query("select role,users.uid,uname,uemail from users inner join role on users.uid = role.uid inner join team on team.teamid = role.teamid where role.teamid = $1 ",[req.query.teamid],function(err,resp){
-    var val={teamid: req.query.teamid,tname: req.query.tname,users:resp.rows}
+    if(err){
+      res.redirect('/error');
+    }else{
+      pool.query("select tcode from team where teamid = $1",[req.query.teamid],function(erro,respo){
+        if(erro){
+          console.log(erro)
+          res.redirect('/error')
+        }else{
+      
+    var val={teamid: req.query.teamid,tname: req.query.tname,tcode:respo.rows[0].tcode,users:resp.rows}
     var mt=0;
     for (let i=0;i<val.users.length;i++){
       if(req.session.userid==val.users[i].uid){
@@ -379,9 +390,70 @@ router.get("/settings",function(req,res,next){
     if(mt==1){
     res.render("mteamsettings",val);}else{
       res.render("teamsettings",val);
+    }}
+  })}
+  })
+
+})
+
+router.post('/refreshcode',function(req,res,next){
+  pool.query("select role from team inner join role on team.teamid=role.teamid where role.uid=$1 and team.teamid = $2",[req.session.userid,req.body.teamid],function(err,resp){
+    if(err){
+      console.log(err);
+      res.redirect('/error')
+    }else{
+      if(resp.rows[0].role){
+        var code= makeid()+'-'+makelid()+'-'+makeid();
+        pool.query("update team set tcode = $1 where teamid = $2",[code,req.body.teamid],function(error,respon){
+          if(error){
+            console.log(error);
+            res.redirect('/error')
+          }else{
+            res.redirect(url.format({pathname:'/settings',query:{"teamid":req.body.teamid,"tname":req.body.tname}}));
+          }
+        })
+      }else{
+        res.redirect('/forcingentry')
+      }
     }
   })
-  
+})
+
+router.get('/leaveteam',function(req,res,next){
+  if(req.session.userid){
+    var teamdat={"teamid":req.query.teamid,"tname":req.query.tname};
+    res.render('leave',teamdat);
+  }
+  else{
+    res.redirect('/login');
+  }
+})
+
+router.post('/leave',function(req,res,next){
+  if(req.session.username){
+    pool.query("delete from role where uid = $1 and teamid = $2",[req.session.userid,req.body.teamid],function(erro,respo){
+      if(erro){
+        console.log(erro)
+        res.redirect('/error')
+      }else{
+        pool.query("select teamid,tname from team where teamid in(select teamid from role where uid=$1)",[req.session.userid],function(err,resp){
+          if(err){
+            console.log(err)
+          }else{
+            var data = {
+              "username": req.session.username,
+              "teams":resp.rows
+            }
+            console.log(data)
+            req.session.data=data;
+          res.redirect('/dashboard');
+          }
+        })
+      }
+    })
+}else{
+    res.redirect('/login')
+  }
 })
 
 router.get('/costestimated', function (req, res, next) {
