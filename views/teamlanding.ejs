@@ -40,20 +40,19 @@
                         <i style="color: black; float: left; margin-right: 10px;" class="fas fa-money-bill-alt"></i><p style="color: black;">Estimate Cost</p>
                     </div>
                 </a>
-                <form method="GET" id="teams<%= teamid %>" action="/settings">
+                <form method="GET" id="teams<%= teamid %>" action="/settings" overflow: auto;>
                     <input type="hidden" name="teamid"id="teamid"value="<%= teamid %>">
                     <input type="hidden" name="tname"id="tname"value="<%= tname %>">
-                <a href="#" onclick="document.getElementById('teams<%= teamid %>').submit()" type="submit" >
-                    <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
-                        
-                            
-                        <i style="color: black; float: left; margin-right: 8px;" class="fas fa-user-cog"></i><p style="color: black;">Team Settings</p>
-                        </div>
-                </a></form>
+                <a style=" width: 100%; " href="#" onclick="document.getElementById('teams<%= teamid %>').submit()" type="submit" >
+                    <div class="rightmargin" style=" width: 100%; color: black; padding: 10px; border: 1px solid black;">
+                        <i style="color: black; float: left;  margin-right: 10px;" class="fas fa-money-bill-alt"></i><p style="color: black;">Team settings</p>
+                    </div>                    
+                </a>
+            </form>
                 
             </div>
 
-  
+
 
             <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;" class="formbody">
 
