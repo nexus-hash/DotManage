@@ -3,7 +3,7 @@
 <html>
 
 <head>
-    <title>Team <%= tname %></title>
+    <title>Confirmation</title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/stylesheets/dotmanage.css">
@@ -12,15 +12,45 @@
     <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
     <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
+    <style>
+        h3{
+            color: black;
+        }
+        input{
+            width: 80%;
+            padding: 1%;
+            margin-bottom: 4%;
+        }
+        textarea{
+            width: 80%;
+            padding: 1%;
+            margin-bottom: 4%;
+        }
+
+        .submit{
+            border-radius: 5px;
+            background-color: rgba(73,115,162,1) ;
+            width: 15%;
+            position: center;
+            color: aliceblue;
+        }
+        .submit2{
+            border-radius: 5px;
+            background-color: rgb(243, 55, 42) ;
+            width: 15%;
+            position: center;
+            color: aliceblue;
+        }
+        
+    </style>
 </head>
 
 <body>
     <div class="min-h-screen bg-dotmanage">
         <div style="width: 100%;height: 8%;background-color: rgba(73,115,162,1);position: fixed;" class="object-top">
             <div style="padding-right: 1%;padding-top: .9%;">
-                <button class="md:text-lg btn logout" style="float: right;">Logout</button>
+                <a href="/logout"><button class="md:text-lg btn logout" style="float: right;">Logout</button></a>
             </div>
-            
 
             <p class="text-base md:text-3xl " style="padding-left:.8%; padding-top:.1%; color: white; text-align: left;">Dot Manage</p>
         </div>
@@ -40,49 +70,29 @@
                         <i style="color: black; float: left; margin-right: 10px;" class="fas fa-money-bill-alt"></i><p style="color: black;">Estimate Cost</p>
                     </div>
                 </a>
-                <form method="GET" id="teams<%= teamid %>" action="/settings" overflow: auto;>
-                    <input type="hidden" name="teamid"id="teamid"value="<%= teamid %>">
-                    <input type="hidden" name="tname"id="tname"value="<%= tname %>">
-                <a style=" width: 100%; " href="#" onclick="document.getElementById('teams<%= teamid %>').submit()" type="submit" >
-                    <div class="rightmargin" style=" width: 100%; color: black; padding: 10px; border: 1px solid black;">
-                        <i style="color: black; float: left;  margin-right: 10px;" class="fas fa-cog"></i><p style="color: black;">Team settings</p>
-                    </div>                    
-                </a>
-            </form>
                 
             </div>
 
-
+  
 
             <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;" class="formbody">
 
                 <div style="flex-grow: 1 ;width: 90%;height: 100%; padding: 5%; overflow:auto;">
-                    <h1 style="font-size: 1.2em; position: center;"><%= tname %></h1>
+                    <h1 style="color: black; font-size: 1.2em; ">Leave Team <%= tname %> ?</h1>
                     <hr style="width:90%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
+                    <h4 style="color: gray; font-size: 1.2em;text-align: center; ">By clicking on the leave button you confirm that you want to leave Team <%= tname %></h4>
+                    <form action="/leave" method="POST">
+                        <input type="hidden" value="<%= teamid %>" name="teamid" id="teamid">
+                    <input type="hidden" value="<%= tname %>" name="tname" id="tname">
+                        
+                    
 
-                    <table class="min-w-full divide-y divide-gray-200">
-                        <thead>
-                        <tr>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Ongoing task
-                            </th>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Deadline
-                            </th>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Progress
-                            </th>
-                            <th class="px-6 py-3 bg-gray-50 text-left text-xs leading-4 font-medium text-gray-500 uppercase tracking-wider">
-                            Actions
-                            </th>
-                            <th class="px-6 py-3 bg-gray-50"></th>
-                        </tr>
-                        </thead>
-
-                    </table>
                 </div>
+                <input class="submit hover:bg-blue-300 inline-block hover:text-black" type="submit"id="submit" value="Leave" readonly >
+                <a href="/dashboard"><input class="submit2 hover:bg-red-300 inline-block text-center hover:text-black" type="button" value="Cancel" readonly >
+            </form>
                 
-            </div>
+        
         </div>
     </div>
 </body>

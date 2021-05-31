@@ -125,11 +125,11 @@
                         
                     </table>
                 </div>
-                    <a href="/createteam"><button type="submit"class="submit"> Create new team</button></a>
-                    
-                    <a href="/jointeam"><button type="submit" class="submit" >Join Existing team</button></a>
-                    
-                    
+                <form action="/leaveteam" method="GET">
+                    <input type="hidden" value="<%= teamid %>" name="teamid" id="teamid">
+                    <input type="hidden" value="<%= tname %>" name="tname" id="tname">
+                    <a href="/leaveteam"><button type="submit"class="submit"> Leave Team</button></a>
+                    </form>
                 
                 
             </div>
