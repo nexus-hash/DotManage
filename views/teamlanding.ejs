@@ -42,6 +42,7 @@
                 </a>
                 <form method="GET" id="teams<%= teamid %>" action="/settings">
                     <input type="hidden" name="teamid"id="teamid"value="<%= teamid %>">
+                    <input type="hidden" name="tname"id="tname"value="<%= tname %>">
                 <a href="#" onclick="document.getElementById('teams<%= teamid %>').submit()" type="submit" >
                     <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
                         
@@ -57,7 +58,7 @@
             <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;" class="formbody">
 
                 <div style="flex-grow: 1 ;width: 90%;height: 100%; padding: 5%; overflow:auto;">
-                    <h1 style="font-size: 1.2em; position: center;"><%= teamid %></h1>
+                    <h1 style="font-size: 1.2em; position: center;"><%= tname %></h1>
                     <hr style="width:90%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
 
                     <table class="min-w-full divide-y divide-gray-200">

@@ -10,6 +10,7 @@ const session = require('cookie-session');
 const sha256 = require('sha256')
 const transport = require('./send-mail');
 const { sendMail } = require('./send-mail');
+const e = require('express');
 
 function makeid(length=4) {
   var result           = [];
@@ -335,12 +336,52 @@ router.get('/unavailable', function (req, res, next) {
 })
 
 router.get('/team', function (req, res, next) {
-  console.log(req.query);
-  res.render("teamlanding",{tname: req.query.tname,teamid: req.query.tid});
+  if(!req.session.username){
+    res.redirect('/login')
+  }else{
+    console.log(req.session.userid)
+    pool.query("select count(*) from role where uid=$1 and teamid =$2",[req.session.userid,req.query.tid],function(err,resp){
+      if(err){
+        console.log(err)
+        res.redirect('/error')
+      }else{
+        if(resp.rows[0].count==1){
+          res.render("teamlanding",{tname: req.query.tname,teamid: req.query.tid,userid: req.session.userid});
+      }else{
+        res.redirect('/forcingentry')
+      }
+    }
+    })
+}
+})
+
+router.get("/forcingentry",function(req,res,next){
+  if(req.session.username){
+    res.redirect('/logout')
+  }else{
+    res.redirect('/login')
+  }
 })
 
 router.get("/settings",function(req,res,next){
-  console.log(req.query);
+  pool.query("select role,users.uid,uname,uemail from users inner join role on users.uid = role.uid inner join team on team.teamid = role.teamid where role.teamid = $1 ",[req.query.teamid],function(err,resp){
+    var val={teamid: req.query.teamid,tname: req.query.tname,users:resp.rows}
+    var mt=0;
+    for (let i=0;i<val.users.length;i++){
+      if(req.session.userid==val.users[i].uid){
+        console.log(val.users[i].uid);
+        if(val.users[i].role){
+          console.log(val.users[i].uid);
+          mt=1;
+        }
+      }
+    }
+    if(mt==1){
+    res.render("mteamsettings",val);}else{
+      res.render("teamsettings",val);
+    }
+  })
+  
 })
 
 router.get('/costestimated', function (req, res, next) {
