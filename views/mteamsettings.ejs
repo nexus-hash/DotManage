@@ -22,7 +22,15 @@
             padding: 1%;
             color: aliceblue;
         }
-        
+        .submit2{
+            border-radius: 5px;
+            background-color: rgb(243, 55, 42) ;
+            width: 20%;
+            position: center;
+            margin: 3%;
+            padding: 1%;
+            color: aliceblue;
+        }
     </style>
 </head>
 
@@ -65,7 +73,7 @@
                     <div style="flex-grow: 1 ;width: 100%;height: 90%; padding: 5%;padding-top:1%;overflow:auto;">
                         <div>Manager</div>
                     <table class="min-w-full divide-y divide-gray-200">
-                        <tbody class="bg-white min-w-full divide-y-4 divide-green-50">
+                        <tbody class="bg-white min-w-full divide-y-3 divide-green-50">
                             <% for(let i=0; i<users.length; i++){  %>
                                 <tr>
                                 <% if(users[i].role) {%>
@@ -87,13 +95,6 @@
                                                 </div>
                                             </div>
                                             </td>
-                                            <td class="px-6 py-3 whitespace-no-wrap items-end text-sm leading-5 font-medium">
-                                                <form id="teams<%= i %>"action="/team" method="GET">
-                                                    <input id="tid" name="tid" type="hidden" value="dsa">
-                                                    <input id="tname" name="tname" type="hidden" value="sad">
-                                                <a href="#" onclick="document.getElementById('teams<%= i %>').submit()" type="submit" class="ml-28 text-indigo-600 text-right hover:underline hover:text-indigo-900">View</a>
-                                              </form>
-                                                </td>
                                     <% }} %>
                                     
                                 </tr>
@@ -126,10 +127,11 @@
                                         </div>
                                         </td>
                                         <td class="px-6 py-3 whitespace-no-wrap items-end text-sm leading-5 font-medium">
-                                            <form id="teams"action="/team" method="GET">
-                                                <input id="tid" name="tid" type="hidden" value="sdsa">
-                                                <input id="tname" name="tname" type="hidden" value="sadsd">
-                                            <a href="#" onclick="document.getElementById('teams').submit()" type="submit" class="ml-28 text-indigo-600 text-right hover:underline hover:text-indigo-900">View</a>
+                                            <form id="user<%= i %>"action="/promote" method="GET">
+                                                <input id="uemail" name="uemail" type="hidden" value="<%= users[i].uemail %>">
+                                                <input id="uname" name="uname" type="hidden" value="<%= users[i].uname %>">
+                                                <input id="teamid" name="teamid" type="hidden" value="<%= teamid %>">
+                                            <a href="#" onclick="document.getElementById('user<%= i %>').submit()" type="submit" class="ml-28 text-indigo-600 text-right hover:underline hover:text-indigo-900">Promote</a>
                                           </form>
                                             </td>
                                 </tr>
@@ -142,8 +144,9 @@
                 <form method="POST" action="/refreshcode">
                     <input type="hidden" value="<%= teamid %>" name="teamid" id="teamid">
                     <input type="hidden" value="<%= tname %>" name="tname" id="tname">
-                    <a href="/refreshcode"><button type="submit"class="submit">Refresh Code</button></a>
-                    <h1 class="text-sm text-center ml-80 inline-block">Team Joining Code:</h1>
+                    <a href="/refreshcode"><button type="submit"class="submit hover:bg-blue-300 inline-block hover:text-black">Refresh Code</button></a>
+                    <a href="/deleteteam"><button type="submit"class="submit2 hover:bg-red-300 inline-block text-center hover:text-black">Delete Team</button></a>
+                    <h1 class="text-sm text-center ml-32 inline-block">Team Joining Code:</h1>
                     <input class="text-lg text-center ml-1 inline-block p-2 placeholder-gray-400 text-gray-700 bg-white rounded shadow" value="<%= tcode %>" readonly>
                 </form>
                     

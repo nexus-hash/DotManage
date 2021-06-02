@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Select assignees</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/dotmanage.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://kit.fontawesome.com/d1f9ff8b6d.js" crossorigin="anonymous"></script>
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <style>
+        h3{
+            color: black;
+        }
+        input{
+            width: 80%;
+            padding: 1%;
+            margin-bottom: 4%;
+        }
+        textarea{
+            width: 80%;
+            padding: 1%;
+            margin-bottom: 4%;
+        }
+
+        .submit{
+            border-radius: 5px;
+            background-color: rgba(73,115,162,1) ;
+            width: 15%;
+            position: center;
+            color: aliceblue;
+        }
+        .submit2{
+            border-radius: 5px;
+            background-color: rgb(243, 55, 42) ;
+            width: 15%;
+            position: center;
+            color: aliceblue;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="min-h-screen bg-dotmanage">
+        <div style="width: 100%;height: 8%;background-color: rgba(73,115,162,1);position: fixed;" class="object-top">
+            <div style="padding-right: 1%;padding-top: .9%;">
+                <a href="/logout"><button class="md:text-lg btn logout" style="float: right;">Logout</button></a>
+            </div>
+
+            <p class="text-base md:text-3xl " style="padding-left:.8%; padding-top:.1%; color: white; text-align: left;">Dot Manage</p>
+        </div>
+
+        <div class="flex md:flex-row" style="position: fixed;top: 8%;width: 100%;height: 92%;">
+
+            <div href="" style="width: 15%;height: 100%;background-color: white;" class="">
+
+                <a href="/dashboard">
+                    <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
+                    <i style="color: black; float: left; margin-right: 10px;" class="fas fa-users"></i> <p style="color: black; ">View Teams</p>
+                    </div>
+                </a>
+
+                <a href="/costestimation">
+                    <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
+                        <i style="color: black; float: left; margin-right: 10px;" class="fas fa-money-bill-alt"></i><p style="color: black;">Estimate Cost</p>
+                    </div>
+                </a>
+                
+            </div>
+
+  
+
+            <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;" class="formbody">
+
+                <div style="flex-grow: 1 ;width: 90%;height: 100%; overflow:auto;">
+                    <form action="/assign" method="POST">
+                        <table class="min-w-full divide-y divide-gray-200">
+                            <tbody class="bg-white min-w-full divide-y-4 divide-green-50">
+                                <% for(let i=0; i<5; i++){  %>
+                                    <tr>
+                                        <td class="px-6 py-1 whitespace-no-wrap">
+                                            <div class=" items-end">
+                                                <div class="ml-4">
+                                                <div class="text-sm leading-5 font-medium text-gray-900">
+                                                    <input type="checkbox" id="coding" name="interest" value="coding">
+                              <label for="coding">Coding</label>
+                                                </div>
+                                                </div>
+                                            </div>
+                                            </td>
+                                    </tr>
+                                    <% } %>
+                            </tbody>
+                        </table>
+                    </div>
+                <input class="submit hover:bg-blue-300 inline-block hover:text-black" type="submit"id="submit" value="Leave" readonly >
+                <a href="/dashboard"><input class="submit2 hover:bg-red-300 inline-block text-center hover:text-black" type="button" value="Cancel" readonly >
+            </form>
+                
+        
+        </div>
+    </div>
+</body>
+
+</html>

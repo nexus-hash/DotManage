@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Confirmation</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/dotmanage.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://kit.fontawesome.com/d1f9ff8b6d.js" crossorigin="anonymous"></script>
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <style>
+        h3{
+            color: black;
+        }
+        input{
+            width: 80%;
+            padding: 1%;
+            margin-bottom: 4%;
+        }
+        textarea{
+            width: 80%;
+            padding: 1%;
+            margin-bottom: 4%;
+        }
+
+        .submit{
+            border-radius: 5px;
+            background-color: rgba(73,115,162,1) ;
+            width: 15%;
+            position: center;
+            color: aliceblue;
+        }
+        .submit2{
+            border-radius: 5px;
+            background-color: rgb(243, 55, 42) ;
+            width: 15%;
+            position: center;
+            color: aliceblue;
+        }
+        
+    </style>
+</head>
+
+<body>
+    <div class="min-h-screen bg-dotmanage">
+        <div style="width: 100%;height: 8%;background-color: rgba(73,115,162,1);position: fixed;" class="object-top">
+            <div style="padding-right: 1%;padding-top: .9%;">
+                <a href="/logout"><button class="md:text-lg btn logout" style="float: right;">Logout</button></a>
+            </div>
+
+            <p class="text-base md:text-3xl " style="padding-left:.8%; padding-top:.1%; color: white; text-align: left;">Dot Manage</p>
+        </div>
+
+        <div class="flex md:flex-row" style="position: fixed;top: 8%;width: 100%;height: 92%;">
+
+            <div href="" style="width: 15%;height: 100%;background-color: white;" class="">
+
+                <a href="/dashboard">
+                    <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
+                    <i style="color: black; float: left; margin-right: 10px;" class="fas fa-users"></i> <p style="color: black; ">View Teams</p>
+                    </div>
+                </a>
+
+                <a href="/costestimation">
+                    <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
+                        <i style="color: black; float: left; margin-right: 10px;" class="fas fa-money-bill-alt"></i><p style="color: black;">Estimate Cost</p>
+                    </div>
+                </a>
+                
+            </div>
+
+  
+
+            <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;" class="formbody">
+
+                <div style="flex-grow: 1 ;width: 90%;height: 100%; padding: 5%; overflow:auto;">
+                    <h1 style="color: black; font-size: 1.2em; ">Promote <%= uname %> ?</h1>
+                    <hr style="width:90%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
+                    <h4 style="color: gray; font-size: 1.2em;text-align: center; ">By clicking on Promote you confirm that you want to make <%= uname %> with Email ID <%= uemail %> as a manager for the team.</h4>
+                    <form action="/promote" method="POST">
+                        <input type="hidden" value="<%= uname %>" name="uname" id="uname">
+                    <input type="hidden" value="<%= uemail %>" name="uemail" id="uemail">
+                    <input id="teamid" name="teamid" type="hidden" value="<%= teamid %>">
+                    
+
+                </div>
+                <input class="submit hover:bg-blue-300 inline-block hover:text-black" type="submit"id="submit" value="Promote" readonly >
+                <a href="/dashboard"><input class="submit2 hover:bg-red-300 inline-block text-center hover:text-black" type="button" value="Cancel" readonly >
+            </form>
+                
+        
+        </div>
+    </div>
+</body>
+
+</html>
