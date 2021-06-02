@@ -301,7 +301,18 @@ router.get('/settask', function (req, res, next) {
 })
 
 router.post('/settask', function (req, res, next) {
+  console.log(req.body)
+  /*pool.query("select role from role where uid = $1 and teamid = $2",[req.session.userid,req.body.teamid],function(err,resp){
+    if(err){
+      console.log(err)
+    }else{
+      if(resp.rows[0].role){
 
+      }else{
+        res.send("Unauthorize access!")
+      }
+    }
+  })*/
 })
 
 
@@ -348,6 +359,7 @@ router.get('/team', function (req, res, next) {
       }else{
         if(resp.rows[0].count==1){
           res.render("teamlanding",{tname: req.query.tname,teamid: req.query.tid,userid: req.session.userid});
+
       }else{
         res.redirect('/forcingentry')
       }
