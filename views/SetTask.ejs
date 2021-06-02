@@ -74,17 +74,17 @@
                     <h1 style="color: black; font-size: 1.2em; ">New Task</h1>
                     <hr style="width:90%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
 
-                    <form action="/createteam" method="POST">
+                    <form action="/assign" method="GET">
                         <div class="relative w-full mb-3">
-                            <input type="text" name="tname" class="border-0 p-4 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" placeholder="Task Title" name="tname" id="tname"style="transition: all 0.15s ease 0s;" required/>
+                            <input type="text" name="tasktitle" class="border-0 p-4 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" placeholder="Task Title" name="tasktitle" id="tasktitle"style="transition: all 0.15s ease 0s;" required/>
                             <small class="p-2 text-red-500">* Task Title</small>
                         </div>
                         <div class="relative w-full mb-3">
-                            <textarea type="text" name="tdes" class="border-0 p-4 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" placeholder="Description" name="tdes" id="tdes"style="transition: all 0.15s ease 0s;" required></textarea>
+                            <textarea type="text" name="taskdes" class="border-0 p-4 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" placeholder="Description" name="taskdes" id="taskdes"style="transition: all 0.15s ease 0s;" required></textarea>
                             <small class="p-2 text-red-500">* Task Description</small>
                         </div>
                         <div class="relative w-full mb-3">
-                            <input type="date" name="tdes" class="border-0 p-4 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" placeholder="Deadline" name="tdes" id="tdes"style="transition: all 0.15s ease 0s;" required>
+                            <input type="date" name="deadline" class="border-0 p-4 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" placeholder="Deadline" name="deadline" id="deadline"style="transition: all 0.15s ease 0s;" required>
                             <small class="p-2 text-red-500">* Deadline</small>
                         </div>
                         
