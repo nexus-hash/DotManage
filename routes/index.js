@@ -14,26 +14,26 @@ const e = require('express');
 const url = require('url');
 const { escapeXML } = require('ejs');
 
-function makeid(length=4) {
-  var result           = [];
-  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+function makeid(length = 4) {
+  var result = [];
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
   var charactersLength = characters.length;
-  for ( var i = 0; i < length; i++ ) {
-    result.push(characters.charAt(Math.floor(Math.random() * 
-charactersLength)));
- }
- return result.join('');
+  for (var i = 0; i < length; i++) {
+    result.push(characters.charAt(Math.floor(Math.random() *
+      charactersLength)));
+  }
+  return result.join('');
 }
 
-function makelid(length=5) {
-  var result           = [];
-  var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
+function makelid(length = 5) {
+  var result = [];
+  var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz';
   var charactersLength = characters.length;
-  for ( var i = 0; i < length; i++ ) {
-    result.push(characters.charAt(Math.floor(Math.random() * 
-charactersLength)));
- }
- return result.join('');
+  for (var i = 0; i < length; i++) {
+    result.push(characters.charAt(Math.floor(Math.random() *
+      charactersLength)));
+  }
+  return result.join('');
 }
 
 function findAndReplace(object, value, replacevalue) {
@@ -90,7 +90,7 @@ router.get('/', function (req, res, next) {
   if (req.session.username) {
     res.redirect('/dashboard');
   } else {
-    res.redirect('/signup');
+    res.redirect('/login');
   }
 });
 
@@ -152,44 +152,44 @@ router.get('/usernameunavailable', function (req, res, next) {
   res.render('usernameunavailable');
 })
 
-router.get('/jointeam',function(req,res,next){
-  if(req.session.username){
-  res.render('jointeam')
-}else{
+router.get('/jointeam', function (req, res, next) {
+  if (req.session.username) {
+    res.render('jointeam')
+  } else {
     res.redirect('/login');
   }
 })
 
-router.post('/jointeam',function(req,res,next){
-  pool.query("select teamid from team where tcode=$1",[req.body.code],function(err,resp){
-    if(err){
+router.post('/jointeam', function (req, res, next) {
+  pool.query("select teamid from team where tcode=$1", [req.body.code], function (err, resp) {
+    if (err) {
       res.redirect('/err')
-    }else{
-      if(resp.rowCount!=1){
+    } else {
+      if (resp.rowCount != 1) {
         res.send("Invalid Code")
-      }else{
-        pool.query("select count(*) from role where uid=$1 and teamid in (select teamid from team where tcode=$2)",[req.session.userid,req.body.code],function(error,respo){
-          if(error){
+      } else {
+        pool.query("select count(*) from role where uid=$1 and teamid in (select teamid from team where tcode=$2)", [req.session.userid, req.body.code], function (error, respo) {
+          if (error) {
             res.redirect('/err')
-          }else{
+          } else {
             console.log(respo.rows);
-            if(respo.rows[0].count!=0){
+            if (respo.rows[0].count != 0) {
               res.send("You are already in the team");
-            }else{
-              pool.query("insert into role (uid,teamid,role) values($1,$2,FALSE)",[req.session.userid,resp.rows[0].teamid],function(errorr,response){
-                if(errorr){
+            } else {
+              pool.query("insert into role (uid,teamid,role) values($1,$2,FALSE)", [req.session.userid, resp.rows[0].teamid], function (errorr, response) {
+                if (errorr) {
                   res.redirect('/error')
-                }else{
-                  pool.query("select teamid,tname from team where teamid in(select teamid from role where uid=$1)",[req.session.userid],function(errorr,responses){
-                    if(errorr){
+                } else {
+                  pool.query("select teamid,tname from team where teamid in(select teamid from role where uid=$1)", [req.session.userid], function (errorr, responses) {
+                    if (errorr) {
                       console.log(errorr)
-                    }else{
+                    } else {
                       var data = {
                         "username": req.session.username,
-                        "teams":responses.rows
+                        "teams": responses.rows
                       }
-                      req.session.data=data;
-                    res.redirect('/dashboard');
+                      req.session.data = data;
+                      res.redirect('/dashboard');
                     }
                   })
                 }
@@ -236,7 +236,7 @@ router.post('/login', function (req, res, next) {
               req.session.username = response.rows[0].uname.toString();
               req.session.userid = response.rows[0].uid.toString();
               req.session.useremail = req.body.email;
-              req.session.data=null;
+              req.session.data = null;
               res.redirect('/dashboard');
             } else {
               res.redirect('/invalid-credentials')
@@ -254,40 +254,41 @@ router.get('/createteam', function (req, res, next) {
 
 router.post('/createteam', function (req, res, next) {
   console.log(req.body);
-  var a=makeid()+'-'+makelid()+'-'+makeid();
+  var a = makeid() + '-' + makelid() + '-' + makeid();
   console.log(req.body);
-  pool.query("insert into team (tcode,tname,tdescription) values ($1,$2,$3)",[a,req.body.tname,req.body.tdes],function(err,resp){
-    if(err){
+  pool.query("insert into team (tcode,tname,tdescription) values ($1,$2,$3)", [a, req.body.tname, req.body.tdes], function (err, resp) {
+    if (err) {
       res.redirect('/err');
-    }else{
-      pool.query("select teamid from team where tcode=$1",[a],function(error,respo){
-        if(error){
+    } else {
+      pool.query("select teamid from team where tcode=$1", [a], function (error, respo) {
+        if (error) {
           res.redirect(
             '/error'
           )
         }
-      else{
-        console.log(req.session.userid);
-      pool.query("insert into role (role,uid,teamid) values(TRUE,$1,$2)",[req.session.userid,respo.rows[0].teamid],function(erro,respon){
-        if(erro){
-          console.log(erro);
-        }else{
-          pool.query("select teamid,tname from team where teamid in(select teamid from role where uid=$1)",[req.session.userid],function(errorr,response){
-            if(errorr){
-              console.log(errorr)
-            }else{
-              var data = {
-                "username": req.session.username,
-                "teams":response.rows
-              }
-              console.log(data)
-              req.session.data=data;
-            res.redirect('/dashboard');
+        else {
+          console.log(req.session.userid);
+          pool.query("insert into role (role,uid,teamid) values(TRUE,$1,$2)", [req.session.userid, respo.rows[0].teamid], function (erro, respon) {
+            if (erro) {
+              console.log(erro);
+            } else {
+              pool.query("select teamid,tname from team where teamid in(select teamid from role where uid=$1)", [req.session.userid], function (errorr, response) {
+                if (errorr) {
+                  console.log(errorr)
+                } else {
+                  var data = {
+                    "username": req.session.username,
+                    "teams": response.rows
+                  }
+                  console.log(data)
+                  req.session.data = data;
+                  res.redirect('/dashboard');
+                }
+              })
             }
           })
         }
-      })}
-    })
+      })
     }
   })
 })
@@ -297,7 +298,8 @@ router.get('/test', function (req, res, next) {
 })
 
 router.get('/settask', function (req, res, next) {
-  res.render("SetTask")
+  console.log(req.query)
+  res.render("SetTask",req.query)
 })
 
 router.post('/settask', function (req, res, next) {
@@ -320,25 +322,25 @@ router.get('/dashboard', function (req, res, next) {
   if (!(req.session.username)) {
     res.redirect('/login')
   } else {
-    if((req.session.data)){
+    if ((req.session.data)) {
       console.log(req.session.data);
       res.render("userlanding", req.session.data);
-    }else{
-    pool.query("select teamid,tname from team where teamid in(select teamid from role where uid=$1)",[req.session.userid],function(err,resp){
-      if(err){
-        console.log(err)
-      }else{
-        console.log(resp)
-        var data = {
-          "username": req.session.username,
-          "teams":resp.rows
+    } else {
+      pool.query("select teamid,tname from team where teamid in(select teamid from role where uid=$1)", [req.session.userid], function (err, resp) {
+        if (err) {
+          console.log(err)
+        } else {
+          console.log(resp)
+          var data = {
+            "username": req.session.username,
+            "teams": resp.rows
+          }
+          console.log(data)
+          req.session.data = data;
+          res.render("userlanding", data);
         }
-        console.log(data)
-        req.session.data=data;
-      res.render("userlanding", data);
-      }
-    })
-  }
+      })
+    }
   }
 
 })
@@ -348,150 +350,228 @@ router.get('/unavailable', function (req, res, next) {
 })
 
 router.get('/team', function (req, res, next) {
-  if(!req.session.username){
+  if (!req.session.username) {
     res.redirect('/login')
-  }else{
+  } else {
     console.log(req.session.userid)
-    pool.query("select count(*) from role where uid=$1 and teamid =$2",[req.session.userid,req.query.tid],function(err,resp){
-      if(err){
+    pool.query("select count(*) from role where uid=$1 and teamid =$2", [req.session.userid, req.query.tid], function (err, resp) {
+      if (err) {
         console.log(err)
         res.redirect('/error')
-      }else{
-        if(resp.rows[0].count==1){
-          res.render("teamlanding",{tname: req.query.tname,teamid: req.query.tid,userid: req.session.userid});
+      } else {
+        if (resp.rows[0].count == 1) {
+          pool.query("select title,isdone,taskid,deadline from task where teamid = $1 ", [req.query.tid], function (erro, respo) {
+            if (erro) {
+              console.log(erro)
+            }
+            else {
+              var taskdata = { tname: req.query.tname, teamid: req.query.tid, userid: req.session.userid };
+              console.log(respo.rows)
+              pool.query("select role from role where uid = $1 and teamid = $2", [req.session.userid, req.query.tid], function (error, respon) {
 
-      }else{
-        res.redirect('/forcingentry')
+                if (error) {
+                  console.log(error)
+                } else {
+                  if (respon.rows[0].role) {
+                    res.render("mteamlanding", { tname: req.query.tname, teamid: req.query.tid, userid: req.session.userid });
+                  } else {
+                    res.render("teamlanding", { tname: req.query.tname, teamid: req.query.tid, userid: req.session.userid });
+
+                  }
+                }
+              })
+            }
+          })
+        } else {
+          res.redirect('/forcingentry')
+        }
       }
-    }
     })
-}
+  }
 })
 
-router.get("/forcingentry",function(req,res,next){
-  if(req.session.username){
+router.get("/forcingentry", function (req, res, next) {
+  if (req.session.username) {
     res.redirect('/logout')
-  }else{
+  } else {
     res.redirect('/login')
   }
 })
 
-router.get("/settings",function(req,res,next){
-  pool.query("select role,users.uid,uname,uemail from users inner join role on users.uid = role.uid inner join team on team.teamid = role.teamid where role.teamid = $1 ",[req.query.teamid],function(err,resp){
-    if(err){
+router.get("/settings", function (req, res, next) {
+  pool.query("select role,users.uid,uname,uemail from users inner join role on users.uid = role.uid inner join team on team.teamid = role.teamid where role.teamid = $1 ", [req.query.teamid], function (err, resp) {
+    if (err) {
       res.redirect('/error');
-    }else{
-      pool.query("select tcode from team where teamid = $1",[req.query.teamid],function(erro,respo){
-        if(erro){
+    } else {
+      pool.query("select tcode from team where teamid = $1", [req.query.teamid], function (erro, respo) {
+        if (erro) {
           console.log(erro)
           res.redirect('/error')
-        }else{
-      
-    var val={teamid: req.query.teamid,tname: req.query.tname,tcode:respo.rows[0].tcode,users:resp.rows}
-    var mt=0;
-    for (let i=0;i<val.users.length;i++){
-      if(req.session.userid==val.users[i].uid){
-        console.log(val.users[i].uid);
-        if(val.users[i].role){
-          console.log(val.users[i].uid);
-          mt=1;
+        } else {
+
+          var val = { teamid: req.query.teamid, tname: req.query.tname, tcode: respo.rows[0].tcode, users: resp.rows }
+          var mt = 0;
+          for (let i = 0; i < val.users.length; i++) {
+            if (req.session.userid == val.users[i].uid) {
+              console.log(val.users[i].uid);
+              if (val.users[i].role) {
+                console.log(val.users[i].uid);
+                mt = 1;
+              }
+            }
+          }
+          if (mt == 1) {
+            res.render("mteamsettings", val);
+          } else {
+            res.render("teamsettings", val);
+          }
         }
-      }
+      })
     }
-    if(mt==1){
-    res.render("mteamsettings",val);}else{
-      res.render("teamsettings",val);
-    }}
-  })}
   })
 
 })
 
-router.post('/refreshcode',function(req,res,next){
-  pool.query("select role from team inner join role on team.teamid=role.teamid where role.uid=$1 and team.teamid = $2",[req.session.userid,req.body.teamid],function(err,resp){
-    if(err){
+router.post('/refreshcode', function (req, res, next) {
+  pool.query("select role from team inner join role on team.teamid=role.teamid where role.uid=$1 and team.teamid = $2", [req.session.userid, req.body.teamid], function (err, resp) {
+    if (err) {
       console.log(err);
       res.redirect('/error')
-    }else{
-      if(resp.rows[0].role){
-        var code= makeid()+'-'+makelid()+'-'+makeid();
-        pool.query("update team set tcode = $1 where teamid = $2",[code,req.body.teamid],function(error,respon){
-          if(error){
+    } else {
+      if (resp.rows[0].role) {
+        var code = makeid() + '-' + makelid() + '-' + makeid();
+        pool.query("update team set tcode = $1 where teamid = $2", [code, req.body.teamid], function (error, respon) {
+          if (error) {
             console.log(error);
             res.redirect('/error')
-          }else{
-            res.redirect(url.format({pathname:'/settings',query:{"teamid":req.body.teamid,"tname":req.body.tname}}));
+          } else {
+            res.redirect(url.format({ pathname: '/settings', query: { "teamid": req.body.teamid, "tname": req.body.tname } }));
           }
         })
-      }else{
+      } else {
         res.redirect('/forcingentry')
       }
     }
   })
 })
 
-router.get('/leaveteam',function(req,res,next){
-  if(req.session.userid){
-    var teamdat={"teamid":req.query.teamid,"tname":req.query.tname};
-    res.render('leave',teamdat);
+router.get('/leaveteam', function (req, res, next) {
+  if (req.session.userid) {
+    var teamdat = { "teamid": req.query.teamid, "tname": req.query.tname };
+    res.render('leave', teamdat);
   }
-  else{
+  else {
     res.redirect('/login');
   }
 })
 
-router.post('/leave',function(req,res,next){
-  if(req.session.username){
-    pool.query("delete from role where uid = $1 and teamid = $2",[req.session.userid,req.body.teamid],function(erro,respo){
-      if(erro){
+router.post('/leave', function (req, res, next) {
+  if (req.session.username) {
+    pool.query("delete from role where uid = $1 and teamid = $2", [req.session.userid, req.body.teamid], function (erro, respo) {
+      if (erro) {
         console.log(erro)
         res.redirect('/error')
-      }else{
-        pool.query("select teamid,tname from team where teamid in(select teamid from role where uid=$1)",[req.session.userid],function(err,resp){
-          if(err){
+      } else {
+        pool.query("select teamid,tname from team where teamid in(select teamid from role where uid=$1)", [req.session.userid], function (err, resp) {
+          if (err) {
             console.log(err)
-          }else{
+          } else {
             var data = {
               "username": req.session.username,
-              "teams":resp.rows
+              "teams": resp.rows
             }
             console.log(data)
-            req.session.data=data;
-          res.redirect('/dashboard');
+            req.session.data = data;
+            res.redirect('/dashboard');
           }
         })
       }
     })
-}else{
+  } else {
     res.redirect('/login')
   }
 })
 
-router.get('/promote',function(req,res,next){
-  res.render("promote",req.query);
+router.get('/promote', function (req, res, next) {
+  res.render("promote", req.query);
 })
 
-router.post('/promote',function(req,res,next){
+router.post('/promote', function (req, res, next) {
   console.log(req.body)
-  pool.query("select role from role where teamid = $1 and uid= $2",[req.body.teamid,req.session.userid],function(err,resp){
-    if(err){
+  pool.query("select role from role where teamid = $1 and uid= $2", [req.body.teamid, req.session.userid], function (err, resp) {
+    if (err) {
       console.log(err)
-    }else{
-      if(resp.rows[0].role){
-        
-      }else{
+    } else {
+      if (resp.rows[0].role) {
+
+      } else {
         res.send("You are not the manager of this team. Access Denied.")
       }
     }
   })
 })
 
-router.post('/assign',function(req,res,next){
-  console.log(req.body)
+router.post('/assign', function (req, res, next) {
+  if (req.session.userid) {
+    pool.query("select role from role where uid=$1 and teamid = $2", [req.session.userid, req.body.teamid], function (err, resp) {
+      if (err) {
+        console.log(err)
+      } else {
+        if (resp.rows[0].role) {
+          var code = makelid() + makelid() + makelid();
+          pool.query("insert into task (teamid,title,description,deadline,isdone,taskcode) values($1,$2,$3,$4,false,$5)", [req.body.teamid, req.body.tasktitle, req.body.description, req.body.deadline, code], function (erro, respo) {
+            if (erro) {
+              console.log(erro)
+            } else {
+              pool.query("select taskid from task where taskcode = $1", [code], function (errors, responses) {
+                if (errors) {
+                  console.log(errors)
+                }
+                else {
+                  console.log(responses.rows[0].taskid)
+                  for (let i = 0; i < req.body.uid.length; i++) {
+                    pool.query("insert into assign values($1,$2)", [ responses.rows[0].taskid,req.body.uid[i]], function (error, respon) {
+                      if (error) {
+                        console.log(error)
+                      } else {
+                        pool.query("select uemail from users where uid=$1", [req.body.uid[i]], function (errorrs, re) {
+                          if (errorrs) {
+                            console.log(errorrs)
+                          } else {
+                            var alert = '<h2>You have been assigned to a new Task in Team'+req.body.tname+'</h2><h2>Task titled as '+req.body.tasktitle+'</h2><h2>Deadline: '+req.body.deadline+'</h2>';
+                            sendEmail(re.rows[0].uemail,"New Task",alert);
+                          }
+                        })
+                      }
+                    })
+                  }
+                  res.redirect('/dashboard')
+                }
+              })
+
+            }
+          })
+        } else {
+          res.send("Access Denied!")
+        }
+      }
+    })
+  } else {
+    res.redirect('/login')
+  }
 })
 
-router.get('/assign',function(req,res,next){
-  res.render("assigneesselect")
+router.get('/assign', function (req, res, next) {
+  pool.query("select users.uid,uname,uemail from users inner join role on users.uid = role.uid inner join team on team.teamid = role.teamid where role.teamid = $1 and role = false ", [req.query.teamid], function (err, resp) {
+    if (err) {
+      res.redirect('/error');
+    } else {
+      console.log(resp.rows)
+      var usersdata = { tasktitle: req.query.tasktitle, taskdes: req.query.taskdes, deadline: req.query.deadline, teamid: req.query.teamid,tname:req.query.tname, user: resp.rows }
+      res.render("assigneesselect", usersdata)
+    }
+  })
+
 })
 
 router.get('/costestimated', function (req, res, next) {
@@ -537,7 +617,7 @@ router.get('/costestimated', function (req, res, next) {
       scheduledTimeD: scheduledTime
     }
     console.log(results);
-    res.render('CostEstimationoutput',results);
+    res.render('CostEstimationoutput', results);
   } catch (error) {
     console.log(error)
   }
@@ -553,98 +633,99 @@ router.get('/forgotpassword', function (req, res, next) {
 })
 
 router.post('/forgotpassword', function (req, res, next) {
-  if(req.session.username){
+  if (req.session.username) {
     res.redirect('/dashboard')
-  }else{
-  pool.connect()
-  pool.query('select count(uemail) from users where uemail = $1', [req.body.email], (err, resp) => {
-    if (resp.rows[0].count == 1) {
-      var token = Math.floor((Math.random() * 100000000000) + 1000000);
-      var hashtoken = sha256(token.toString())
-      var link = "https://dotmanage.herokuapp.com/changepassword?email=" + req.body.email + "&token=" + hashtoken;
-      console.log(link);
-      localStorage.setItem(req.body.email, token.toString())
-      var myHour = new Date().getTime();
-      var Hours = .50;
-      console.log(myHour)
-      myHour = myHour + (Hours * 60 * 60 * 1000)
-      console.log(myHour)
-      localStorage.setItem("Time", myHour);
-      var message = '<h2>Use this link to reset your password</h2><h4>This link will expire after 30 mins.</h4><a href="' + link + '"><button type="submit" style="border-radius: 5px;background-color: rgba(73,115,162,1) ;width: 20%;position: center;margin: 3%;padding: 1%;color: aliceblue;" >Reset Password</button></a>';
-      console.log(message);
-      sendEmail(req.body.email, "Forgot Password", message)
-      res.redirect('/checkmail')
-    }
-    else {
-      res.redirect('/accountnotfound')
-    }
-  })
-}
+  } else {
+    pool.connect()
+    pool.query('select count(uemail) from users where uemail = $1', [req.body.email], (err, resp) => {
+      if (resp.rows[0].count == 1) {
+        var token = Math.floor((Math.random() * 100000000000) + 1000000);
+        var hashtoken = sha256(token.toString())
+        var link = "https://dotmanage.herokuapp.com/changepassword?email=" + req.body.email + "&token=" + hashtoken;
+        console.log(link);
+        localStorage.setItem(req.body.email, token.toString())
+        var myHour = new Date().getTime();
+        var Hours = .50;
+        console.log(myHour)
+        myHour = myHour + (Hours * 60 * 60 * 1000)
+        console.log(myHour)
+        localStorage.setItem("Time", myHour);
+        var message = '<h2>Use this link to reset your password</h2><h4>This link will expire after 30 mins.</h4><a href="' + link + '"><button type="submit" style="border-radius: 5px;background-color: rgba(73,115,162,1) ;width: 20%;position: center;margin: 3%;padding: 1%;color: aliceblue;" >Reset Password</button></a>';
+        console.log(message);
+        sendEmail(req.body.email, "Forgot Password", message)
+        res.redirect('/checkmail')
+      }
+      else {
+        res.redirect('/accountnotfound')
+      }
+    })
+  }
 })
 
 router.get('/checkmail', function (req, res, next) {
-  if(localStorage.getItem("Time")){
-  res.render('checkmail')}
-  else{
+  if (localStorage.getItem("Time")) {
+    res.render('checkmail')
+  }
+  else {
     res.redirect('/forgotpassword')
   }
 })
 
-router.get('/accountnotfound',function(req,res,next){
+router.get('/accountnotfound', function (req, res, next) {
   res.render('accountnotfound')
 })
 
 router.get('/changepassword', function (req, res, next) {
-  if(req.session.username){
+  if (req.session.username) {
     res.redirect('/dashboard')
-  }else{
-  var time = new Date().getTime();
-  if (time > localStorage.getItem("Time")) {
-    res.redirect('/expired')
   } else {
-    if (localStorage.getItem(req.query.email)) {
-      if (sha256(localStorage.getItem(req.query.email).toString()) == req.query.token) {
-        var data={
-          email:req.query.email,
-          token:req.query.token
-        }
-        req.session.passwordChange = true;
-        res.render('changepassword',data);
-      } else {
-        res.redirect('/invalidlink');
-      }
+    var time = new Date().getTime();
+    if (time > localStorage.getItem("Time")) {
+      res.redirect('/expired')
     } else {
-      res.redirect('/expired');
+      if (localStorage.getItem(req.query.email)) {
+        if (sha256(localStorage.getItem(req.query.email).toString()) == req.query.token) {
+          var data = {
+            email: req.query.email,
+            token: req.query.token
+          }
+          req.session.passwordChange = true;
+          res.render('changepassword', data);
+        } else {
+          res.redirect('/invalidlink');
+        }
+      } else {
+        res.redirect('/expired');
+      }
     }
   }
-}
 })
 
-router.post('/changepassword',function(req,res,next)
-{
-  if(req.session.username){
+router.post('/changepassword', function (req, res, next) {
+  if (req.session.username) {
     res.redirect('/dashboard')
-  }else{
-  if(req.body.token==sha256(localStorage.getItem(req.body.email))){
-  pool.connect();
-  pool.query("update users set upassword=$1 where uemail=$2",[sha256(req.body.newpassword),req.body.email],(err,resp)=>{
-    if(err){
-      res.redirect('/error')
-    }else{
-      localStorage.clear();
-      res.redirect('/passwordupdated')
+  } else {
+    if (req.body.token == sha256(localStorage.getItem(req.body.email))) {
+      pool.connect();
+      pool.query("update users set upassword=$1 where uemail=$2", [sha256(req.body.newpassword), req.body.email], (err, resp) => {
+        if (err) {
+          res.redirect('/error')
+        } else {
+          localStorage.clear();
+          res.redirect('/passwordupdated')
+        }
+      })
+    } else {
+      res.redirect('/forgotpassword');
     }
-  })}else{
-    res.redirect('/forgotpassword');
   }
-}
 })
 
-router.get('/passwordupdated',function(req,res,next){
-  if(!req.session.passwordChange){
+router.get('/passwordupdated', function (req, res, next) {
+  if (!req.session.passwordChange) {
     res.redirect('/login')
-  }else{
-    req.session.passwordChange=null;
+  } else {
+    req.session.passwordChange = null;
     res.render('passwordupdated')
   }
 })
@@ -662,11 +743,19 @@ router.get('/logout', function (req, res, next) {
   res.redirect('/login')
 })
 
-router.get('/costestimation',function(req,res,next){
+router.get('/costestimation', function (req, res, next) {
   res.render("CostEstimationInput")
 })
 
-router.get('/test',function(req,res,next){
+router.get('/test', function (req, res, next) {
+  res.render("test.ejs")
+})
+
+router.get('/costestimation', function (req, res, next) {
+  res.render("CostEstimationInput")
+})
+
+router.get('/test', function (req, res, next) {
   res.render("test.ejs")
 })
 
