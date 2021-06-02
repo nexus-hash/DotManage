@@ -81,14 +81,14 @@
                     <form action="/assign" method="POST">
                         <table class="min-w-full divide-y divide-gray-200">
                             <tbody class="bg-white min-w-full divide-y-4 divide-green-50">
-                                <% for(let i=0; i<5; i++){  %>
+                                <% for(let i=0; i<user.length; i++){  %>
                                     <tr>
                                         <td class="px-6 py-1 whitespace-no-wrap">
                                             <div class=" items-end">
                                                 <div class="">
                                                 <div class="text-sm leading-5 font-medium text-gray-900">
-                                                    <input type="checkbox" id="coding" name="interest" value="coding">
-                              <label for="coding">Coding</label>
+                                                    <input type="checkbox" id="users<%= i %>" name="uid" value="<%= user[i].uid %>">
+                              <label for="users<%= i %>"><%= user[i].uemail %></label>
                                                 </div>
                                                 </div>
                                             </div>
@@ -99,6 +99,11 @@
                         </table>
                         
                     </div>
+                    <input name="teamid" type="hidden" id="teamid" value="<%= teamid %>" required>
+                    <input name="tasktitle" type="hidden" id="tasktitle" value="<%= tasktitle %>" required>
+                    <input name="taskdes" type="hidden" id="taskdes" value="<%= taskdes %>" required>
+                    <input name="deadline" type="hidden" id="deadline" value="<%= deadline %>" required>
+                    <input type="hidden" name="tname" id="tname" value="<%= tname %>">
                 <input class="submit hover:bg-blue-300 inline-block hover:text-black" type="submit"id="submit" value="Assign" readonly >
                 <a href="/dashboard"><input class="submit2 hover:bg-red-300 inline-block text-center hover:text-black" type="button" value="Cancel" readonly >
             </form>

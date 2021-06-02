@@ -75,7 +75,7 @@
             <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%; padding-top: 0; padding-right: 0; overflow:auto;"
                 class="formbody">
 
-                <div style="flex-grow: 1 ;width: 100%;height: 15%; padding: 5%; overflow:auto;">
+                <div style="flex-grow: 1 ;width: 100%;height: 15%; padding: 5%;">
                     <h1 class="text-xl text-center">Hello </h1>
                 </div>
                 <% if (1==0){ %>
@@ -156,7 +156,7 @@
                                                     <a href="#"
                                                         onclick="document.getElementById('teams<%= i %>').submit()"
                                                         type="submit"
-                                                        class="ml-4 text-indigo-600 text-right hover:underline hover:text-indigo-900">View</a>
+                                                        class="ml-4 text-indigo-600 text-right hover:underline hover:text-indigo-900">Modify</a>
                                                 </form>
                                             </td>
                                         </tr>
@@ -167,6 +167,11 @@
                             </table>
                         </div>
                         <% } %>
+                        <form method="GET" action="/settask">
+                            <input type="hidden" name="teamid" id="teamid" value="<%= teamid %>">
+                            <input type="hidden" name="tname" id="tname" value="<%= tname %>">
+                            <a href="/settask"><button type="submit" class="submit"> Create new task</button></a>
+                        </form>
             </div>
         </div>
     </div>
