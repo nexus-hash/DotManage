@@ -16,11 +16,7 @@
         h3{
             color: black;
         }
-        input{
-            width: 80%;
-            padding: 1%;
-            margin-bottom: 4%;
-        }
+        
         textarea{
             width: 80%;
             padding: 1%;
@@ -76,7 +72,6 @@
   
 
             <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;" class="formbody">
-
                 <div style="flex-grow: 1 ;width: 90%;height: 100%; overflow:auto;">
                     <form action="/assign" method="POST">
                         <table class="min-w-full divide-y divide-gray-200">
@@ -85,7 +80,7 @@
                                     <tr>
                                         <td class="px-6 py-1 whitespace-no-wrap">
                                             <div class=" items-end">
-                                                <div class="ml-4">
+                                                <div class="">
                                                 <div class="text-sm leading-5 font-medium text-gray-900">
                                                     <input type="checkbox" id="coding" name="interest" value="coding">
                               <label for="coding">Coding</label>
@@ -97,6 +92,7 @@
                                     <% } %>
                             </tbody>
                         </table>
+                        
                     </div>
                 <input class="submit hover:bg-blue-300 inline-block hover:text-black" type="submit"id="submit" value="Leave" readonly >
                 <a href="/dashboard"><input class="submit2 hover:bg-red-300 inline-block text-center hover:text-black" type="button" value="Cancel" readonly >
