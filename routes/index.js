@@ -306,7 +306,6 @@ router.post('/settask', function (req, res, next) {
 
 
 router.get('/dashboard', function (req, res, next) {
-  //TODO: GET Teams list the user is present in and send the json data
   if (!(req.session.username)) {
     res.redirect('/login')
   } else {
@@ -454,6 +453,33 @@ router.post('/leave',function(req,res,next){
 }else{
     res.redirect('/login')
   }
+})
+
+router.get('/promote',function(req,res,next){
+  res.render("promote",req.query);
+})
+
+router.post('/promote',function(req,res,next){
+  console.log(req.body)
+  pool.query("select role from role where teamid = $1 and uid= $2",[req.body.teamid,req.session.userid],function(err,resp){
+    if(err){
+      console.log(err)
+    }else{
+      if(resp.rows[0].role){
+        
+      }else{
+        res.send("You are not the manager of this team. Access Denied.")
+      }
+    }
+  })
+})
+
+router.post('/assign',function(req,res,next){
+  console.log(req.body)
+})
+
+router.get('/assign',function(req,res,next){
+  res.render("assigneesselect")
 })
 
 router.get('/costestimated', function (req, res, next) {
