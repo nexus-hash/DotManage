@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <title>Modify Task</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/stylesheets/dotmanage.css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="https://kit.fontawesome.com/d1f9ff8b6d.js" crossorigin="anonymous"></script>
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+    <style>
+        h3{
+            color: black;
+        }
+        input{
+            width: 80%;
+            padding: 1%;
+            margin-bottom: 4%;
+        }
+        textarea{
+            width: 80%;
+            padding: 1%;
+            margin-bottom: 4%;
+        }
+
+        .submit{
+            border-radius: 5px;
+            background-color: rgba(73,115,162,1) ;
+            width: 15%;
+            position: center;
+            color: aliceblue;
+        }
+        .home input[type="checkbox"] 
+  {
+    margin:None;
+  }
+        
+    </style>
+</head>
+
+<body>
+    <div class="min-h-screen bg-dotmanage">
+        <div style="width: 100%;height: 8%;background-color: rgba(73,115,162,1);position: fixed;" class="object-top">
+            <div style="padding-right: 1%;padding-top: .9%;">
+                <a href="/logout"><button class="md:text-lg btn logout" style="float: right;">Logout</button></a>
+            </div>
+
+            <p class="text-base md:text-3xl " style="padding-left:.8%; padding-top:.1%; color: white; text-align: left;">Dot Manage</p>
+        </div>
+
+        <div class="flex md:flex-row" style="position: fixed;top: 8%;width: 100%;height: 92%;">
+
+            <div href="" style="width: 15%;height: 100%;background-color: white;" class="">
+
+                <a href="/dashboard">
+                    <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
+                    <i style="color: black; float: left; margin-right: 10px;" class="fas fa-users"></i> <p style="color: black; ">View Teams</p>
+                    </div>
+                </a>
+
+                <a href="/costestimation">
+                    <div class="rightmargin" style="color: black; padding: 10px; border: 1px solid black;">
+                        <i style="color: black; float: left; margin-right: 10px;" class="fas fa-money-bill-alt"></i><p style="color: black;">Estimate Cost</p>
+                    </div>
+                </a>
+                
+            </div>
+
+  
+
+            <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;overflow: auto;" class="formbody">
+
+                <div style="flex-grow: 1 ;width: 90%;height: 100%; padding: 5%; overflow:auto;">
+                    <h1 style="color: black; font-size: 1.2em; ">Modify Task #<%= taskid %></h1>
+                    <hr style="width:90%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
+
+                    <form action="/modify" method="POST">
+                        <div class="relative w-full mb-3">
+                            <input type="text" value="<%= title %>" name="tasktitle" class="border-0 p-4 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" placeholder="Task Title" name="tasktitle" id="tasktitle"style="transition: all 0.15s ease 0s;" required/>
+                            <small class="p-2 text-red-500">* Task Title</small>
+                        </div>
+                        <div class="relative w-full mb-3">
+                            <textarea type="text"  name="taskdes" class="border-0 p-4 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" placeholder="Description" name="taskdes" id="taskdes"style="transition: all 0.15s ease 0s;" required><%= description %> </textarea>
+                            <small class="p-2 text-red-500">* Task Description</small>
+                        </div>
+                        <div class="relative w-full mb-3">
+                            <input type="date" value="<%= to_char %>"  name="deadline" class="border-0 p-4 placeholder-gray-400 text-gray-700 bg-white rounded text-sm shadow focus:outline-none focus:ring w-full" placeholder="Deadline" name="deadline" id="deadline"style="transition: all 0.15s ease 0s;" required>
+                            <small class="p-2 text-red-500">* Deadline</small>
+                        </div>
+                        
+
+                </div>
+                    <input type="checkbox" class="inline-block" id="compl" name="isdone">
+                          <label for="compl">Mark as Complete</label>
+                <input type="hidden" name="teamid" id="teamid" value="<%= teamid %>">
+                <input type="hidden" name="taskid" id="taskid" value="<%= taskid %>">
+                <input class="submit hover:bg-blue-300 hover:text-black inline-block" style="cursor: grab;" type="submit"id="submit" value="Continue">
+            </form>
+                
+        
+        </div>
+    </div>
+</body>
+
+</html>
