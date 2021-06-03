@@ -411,26 +411,49 @@ router.get('/team', function (req, res, next) {
 })
 
 router.get('/view',function(req,res,next){
-  pool.query("select taskid,teamid,title,description,to_char(deadline, 'YYYY-MM-DD'),isdone,taskcode from task where taskid=$1",[req.query.taskid],function(err,resp){
+  pool.query("select uemail, task.taskid ,teamid,title,description,to_char(deadline, 'YYYY-MM-DD'),isdone,taskcode from task inner join assign on task.taskid = assign.taskid inner join users on assign.uid = users.uid  where task.taskid=$1",[req.query.taskid],function(err,resp){
     if(err){
       console.log(err)
     }else{
-      var taskdetails = resp.rows[0]
-      res.render('taskview',taskdetails)
+      pool.query("select uemail from users where users.uid in(Select uid from assign where taskid = $1);",[req.query.taskid],function(error,respo){
+        console.log(resp.rows)
+        var taskdetails ={ taskid: resp.rows[0].taskid,
+          teamid: resp.rows[0].teamid,
+          title: resp.rows[0].title,
+          description: resp.rows[0].description,
+          to_char: resp.rows[0].to_char,
+          isdone: resp.rows[0].isdone,
+          taskcode: resp.rows[0].taskcode,user: respo.rows}
+      console.log(taskdetails)
+        res.render('taskview',taskdetails);
+        
+      })
     }
   })
 })
 
 router.get('/modify',function(req,res,next){
-  pool.query("select taskid,teamid,title,description,to_char(deadline, 'YYYY-MM-DD'),isdone,taskcode from task where taskid=$1",[req.query.taskid],function(err,resp){
+  pool.query("select task.taskid,teamid,title,description,to_char(deadline, 'YYYY-MM-DD'),isdone,taskcode from task where task.taskid=$1",[req.query.taskid],function(err,resp){
     if(err){
       console.log(err)
     }else{
-      var taskdetails = resp.rows[0]
+      pool.query("select uemail from users where users.uid in(Select uid from assign where taskid = $1);",[req.query.taskid],function(error,respo){
+        console.log(resp.rows)
+        var taskdetails ={ taskid: resp.rows[0].taskid,
+          teamid: resp.rows[0].teamid,
+          title: resp.rows[0].title,
+          description: resp.rows[0].description,
+          to_char: resp.rows[0].to_char,
+          isdone: resp.rows[0].isdone,
+          taskcode: resp.rows[0].taskcode,user: respo.rows}
+      console.log(taskdetails)
       if(req.query.status == "Ongoing" || req.query.status == "Past Due"){
-      res.render('modify',taskdetails);}else{
-        res.render('nmodify',taskdetails);
-      }
+        res.render('modify',taskdetails);}else{
+          res.render('nmodify',taskdetails);
+        }
+      })
+      
+      
     }
   })
   
@@ -834,6 +857,14 @@ router.get('/costestimation', function (req, res, next) {
 })
 
 router.get('/test', function (req, res, next) {
+  res.render("test.ejs")
+})
+
+router.get('/costestimation',function(req,res,next){
+  res.render("CostEstimationInput")
+})
+
+router.get('/test',function(req,res,next){
   res.render("test.ejs")
 })
 

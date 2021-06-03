@@ -88,8 +88,8 @@
                           <label for="compl">Mark as Complete</label>
 
                           <div> Assigned to
-                                <% for(let i=0; i<2; i++){ %>
-                                    <div></div>
+                                <% for(let i=0; i<user.length; i++){ %>
+                                    <div><%= user[i].uemail %></div>
                                 <%  } %>
                         </div>
                 </div>
