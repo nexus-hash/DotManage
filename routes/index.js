@@ -420,6 +420,22 @@ router.get('/modify',function(req,res,next){
   
 })
 
+router.post('/modify',function(req,res,next){
+  pool.query("update task set title = $1, description = $2, deadline = $3 isdone = $4 where taskid = $5",[req.body.tasktitle,req.body.taskdes,req.body.deadline,,req.body.taskid],function(err,resp){
+    if(err){
+      console.log(err)
+    }else{
+      pool.query("select uemail from users inner join assign on assign.uid = users.uid where taskid = $1",[req.body.taskid],function(erro,respo){
+        for(let i = 0;i<respo.rowCount;i++){
+          var alert = '<h2>Modification on Task in Team'+req.body.tname+'</h2><h2>Task Details after modification : </h2><h2>Task titled as '+req.body.tasktitle+'</h2><h2>Deadline: '+req.body.deadline+'</h2>';
+                            sendEmail(respo.rows[i].uemail,"Modified Task",alert);
+        }
+        res.redirect('/dashboard')
+      })
+    }
+  })
+})
+
 router.get("/forcingentry", function (req, res, next) {
   if (req.session.username) {
     res.redirect('/logout')
