@@ -475,7 +475,7 @@ router.post('/modify',function(req,res,next){
       }
     })
   }else{
-  pool.query("update task set title = $1, description = $2, deadline = $3 where taskid = $5",[req.body.tasktitle,req.body.taskdes,req.body.deadline,,req.body.taskid],function(err,resp){
+  pool.query("update task set title = $1, description = $2, deadline = $3 where taskid = $4",[req.body.tasktitle,req.body.taskdes,req.body.deadline,req.body.taskid],function(err,resp){
     if(err){
       console.log(err)
     }else{
