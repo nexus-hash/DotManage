@@ -84,7 +84,11 @@
                     <form action="/assign" method="POST">
                         <table class="min-w-full divide-y divide-gray-200">
                             <tbody class="bg-white min-w-full divide-y-4 divide-green-50">
-                                <% for(let i=0; i<user.length; i++){  %>
+                                
+                                <% if(user.length==0){ %>
+                                    <div class="text-center">No members to assign</div>
+                                
+                                <% } else {for(let i=0; i<user.length; i++){  %>
                                     <tr>
                                         <td class="px-6 py-1 whitespace-no-wrap">
                                             <div class=" items-end">
@@ -97,7 +101,7 @@
                                             </div>
                                             </td>
                                     </tr>
-                                    <% } %>
+                                    <% }} %>
                             </tbody>
                         </table>
                         
