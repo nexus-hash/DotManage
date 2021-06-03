@@ -166,14 +166,14 @@
                                             </td>
                                             <td
                                                 class="px-6 py-3 whitespace-nowrap text-right text-sm leading-5 font-medium">
-                                                <form id="task<%= i %>" action="/modify" method="GET">
+                                                <form id="task<%= i %>" action="/view" method="GET">
                                                     <input id="taskid" name="taskid" type="hidden" value="<%= tasks[i].taskid %>">
                                                     <input id="teamid" name="teamid" type="hidden" value="<%= teamid %>">
                                                     <input id="status" name="status" type="hidden" value="<%= tasks[i].status %>">
                                                     <a href="#"
                                                         onclick="document.getElementById('task<%= i %>').submit()"
                                                         type="submit"
-                                                        class="ml-4 text-indigo-600 text-right hover:underline hover:text-indigo-900">Modify</a>
+                                                        class="ml-4 text-indigo-600 text-right hover:underline hover:text-indigo-900">View</a>
                                                 </form>
                                             </td>
                                             

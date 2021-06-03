@@ -380,16 +380,20 @@ router.get('/team', function (req, res, next) {
                   respo.rows[i].status = 'Ongoing'
                 }
               }
-              var taskdata = { tname: req.query.tname, teamid: req.query.tid, userid: req.session.userid,tasks:respo.rows };
-              console.log(respo.rows)
+              
               pool.query("select role from role where uid = $1 and teamid = $2", [req.session.userid, req.query.tid], function (error, respon) {
 
                 if (error) {
                   console.log(error)
                 } else {
+                  var taskdata = { tname: req.query.tname, teamid: req.query.tid, userid: req.session.userid,tasks:respo.rows };
+              console.log(respo.rows)
+              console.log(respon.rows[0].role)
                   if (respon.rows[0].role) {
+                    console.log("yes")
                     res.render("mteamlanding", taskdata);
                   } else {
+                    
                     res.render("teamlanding", taskdata);
 
                   }
