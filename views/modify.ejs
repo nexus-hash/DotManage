@@ -17,10 +17,7 @@
         h3{
             color: black;
         }
-        input{
-            width: 80%;
-            padding: 1%;
-        }
+        
         textarea{
             width: 80%;
             padding: 1%;
@@ -67,11 +64,7 @@
                         <i style="color: black; float: left; margin-right: 10px;" class="fas fa-money-bill-alt"></i><p style="color: black;">Estimate Cost</p>
                     </div>
                 </a>
-                
             </div>
-
-  
-
             <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;overflow: auto;" class="formbody">
 
                 <div style="flex-grow: 1 ;width: 90%;height: 100%; padding: 5%; overflow:auto;">
@@ -94,11 +87,15 @@
                         <input type="checkbox" id="compl" name="isdone">
                           <label for="compl">Mark as Complete</label>
 
+                          <div> Assigned to
+                                <% for(let i=0; i<2; i++){ %>
+                                    <div></div>
+                                <%  } %>
+                        </div>
                 </div>
-                    
                 <input type="hidden" name="teamid" id="teamid" value="<%= teamid %>">
                 <input type="hidden" name="taskid" id="taskid" value="<%= taskid %>">
-                <input class="submit hover:bg-blue-300 hover:text-black inline-block" style="cursor: grab;" type="submit"id="submit" value="Continue">
+                <input class="submit p-3 hover:bg-blue-300 hover:text-black inline-block" style="cursor: grab;" type="submit"id="submit" value="Continue">
             </form>
         </div>
     </div>
