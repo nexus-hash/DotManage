@@ -13,6 +13,7 @@ const { sendMail } = require('./send-mail');
 const e = require('express');
 const url = require('url');
 const { escapeXML } = require('ejs');
+const { SSL_OP_NO_SSLv2 } = require('constants');
 
 function makeid(length = 4) {
   var result = [];
@@ -436,7 +437,22 @@ router.get('/modify',function(req,res,next){
 })
 
 router.post('/modify',function(req,res,next){
-  pool.query("update task set title = $1, description = $2, deadline = $3 isdone = $4 where taskid = $5",[req.body.tasktitle,req.body.taskdes,req.body.deadline,,req.body.taskid],function(err,resp){
+  if(req.body.isdone == 'on'){
+    pool.query("update task set isdone = true where taskid = $1",[req.body.taskid],function(error,respon) {
+      if(error){
+        console.log(error)
+      }else{
+        pool.query("select uemail from users inner join assign on assign.uid = users.uid where taskid = $1",[req.body.taskid],function(erro,respo){
+          for(let i = 0;i<respo.rowCount;i++){
+            var alert = '<h2>Task Progress Update in Team'+req.body.tname+'</h2><h2>Task titled as '+req.body.tasktitle+' is marked as Completed.';
+                              sendEmail(respo.rows[i].uemail,"Task Progress",alert);
+          }
+          res.redirect('/dashboard')
+        })
+      }
+    })
+  }else{
+  pool.query("update task set title = $1, description = $2, deadline = $3 where taskid = $5",[req.body.tasktitle,req.body.taskdes,req.body.deadline,,req.body.taskid],function(err,resp){
     if(err){
       console.log(err)
     }else{
@@ -448,7 +464,7 @@ router.post('/modify',function(req,res,next){
         res.redirect('/dashboard')
       })
     }
-  })
+  })}
 })
 
 router.get("/forcingentry", function (req, res, next) {
