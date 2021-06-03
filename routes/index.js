@@ -63,6 +63,26 @@ function sendEmail(to, subject, message) {
   });
 };
 
+function deadlinecheck() {
+  var today = new Date();
+  var dd = String(today.getDate()).padStart(2, '0');
+  var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+  var yyyy = today.getFullYear();
+
+  today = dd + '-' + mm + '-' + yyyy;
+  return today;
+}
+
+function checkdates(d1, d2) {
+  var parts = d1.split('-');
+  var d1 = Number(parts[2] + parts[1] + parts[0]);
+  console.log(d1)
+  var parts = d2.split('-');
+  var d2 = Number(parts[2] + parts[1] + parts[0]);
+  console.log(d2)
+  return d1 > d2
+}
+
 var RequiredSoftware = [0.75, 0.88, 1, 1.15, 1.4]
 var SizeofProjectDatabase = [0.94, 1, 1.08, 1.16]
 var ComplexityofTheProject = [0.7, 0.85, 1, 1.15, 1.3]
@@ -302,21 +322,6 @@ router.get('/settask', function (req, res, next) {
   res.render("SetTask",req.query)
 })
 
-router.post('/settask', function (req, res, next) {
-  console.log(req.body)
-  /*pool.query("select role from role where uid = $1 and teamid = $2",[req.session.userid,req.body.teamid],function(err,resp){
-    if(err){
-      console.log(err)
-    }else{
-      if(resp.rows[0].role){
-
-      }else{
-        res.send("Unauthorize access!")
-      }
-    }
-  })*/
-})
-
 
 router.get('/dashboard', function (req, res, next) {
   if (!(req.session.username)) {
@@ -360,12 +365,22 @@ router.get('/team', function (req, res, next) {
         res.redirect('/error')
       } else {
         if (resp.rows[0].count == 1) {
-          pool.query("select title,isdone,taskid,deadline from task where teamid = $1 ", [req.query.tid], function (erro, respo) {
+          pool.query("select title,isdone,taskid,to_char(deadline,'DD-MM-YYYY') from task where teamid = $1 ", [req.query.tid], function (erro, respo) {
             if (erro) {
               console.log(erro)
             }
             else {
-              var taskdata = { tname: req.query.tname, teamid: req.query.tid, userid: req.session.userid };
+              console.log(deadlinecheck())
+              for(let i=0;i<respo.rows.length;i++){
+                if(respo.rows[i].isdone){
+                  respo.rows[i].status = 'Completed'
+                }else if(checkdates(deadlinecheck(),respo.rows[i].to_char)){
+                  respo.rows[i].status = 'Past Due'
+                }else{
+                  respo.rows[i].status = 'Ongoing'
+                }
+              }
+              var taskdata = { tname: req.query.tname, teamid: req.query.tid, userid: req.session.userid,tasks:respo.rows };
               console.log(respo.rows)
               pool.query("select role from role where uid = $1 and teamid = $2", [req.session.userid, req.query.tid], function (error, respon) {
 
@@ -373,9 +388,9 @@ router.get('/team', function (req, res, next) {
                   console.log(error)
                 } else {
                   if (respon.rows[0].role) {
-                    res.render("mteamlanding", { tname: req.query.tname, teamid: req.query.tid, userid: req.session.userid });
+                    res.render("mteamlanding", taskdata);
                   } else {
-                    res.render("teamlanding", { tname: req.query.tname, teamid: req.query.tid, userid: req.session.userid });
+                    res.render("teamlanding", taskdata);
 
                   }
                 }
@@ -388,6 +403,21 @@ router.get('/team', function (req, res, next) {
       }
     })
   }
+})
+
+router.get('/modify',function(req,res,next){
+  pool.query("select taskid,teamid,title,description,to_char(deadline, 'YYYY-MM-DD'),isdone,taskcode from task where taskid=$1",[req.query.taskid],function(err,resp){
+    if(err){
+      console.log(err)
+    }else{
+      var taskdetails = resp.rows[0]
+      if(req.query.status == "Ongoing" || req.query.status == "Past Due"){
+      res.render('modify',taskdetails);}else{
+        res.render('nmodify',taskdetails);
+      }
+    }
+  })
+  
 })
 
 router.get("/forcingentry", function (req, res, next) {
@@ -519,7 +549,8 @@ router.post('/assign', function (req, res, next) {
       } else {
         if (resp.rows[0].role) {
           var code = makelid() + makelid() + makelid();
-          pool.query("insert into task (teamid,title,description,deadline,isdone,taskcode) values($1,$2,$3,$4,false,$5)", [req.body.teamid, req.body.tasktitle, req.body.description, req.body.deadline, code], function (erro, respo) {
+          console.log(req.body.taskdes)
+          pool.query("insert into task (teamid,title,description,deadline,isdone,taskcode) values($1,$2,$3,$4,false,$5)", [req.body.teamid, req.body.tasktitle, req.body.taskdes, req.body.deadline, code], function (erro, respo) {
             if (erro) {
               console.log(erro)
             } else {
