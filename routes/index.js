@@ -409,6 +409,17 @@ router.get('/team', function (req, res, next) {
   }
 })
 
+router.get('/view',function(req,res,next){
+  pool.query("select taskid,teamid,title,description,to_char(deadline, 'YYYY-MM-DD'),isdone,taskcode from task where taskid=$1",[req.query.taskid],function(err,resp){
+    if(err){
+      console.log(err)
+    }else{
+      var taskdetails = resp.rows[0]
+      res.render('taskview',taskdetails)
+    }
+  })
+})
+
 router.get('/modify',function(req,res,next){
   pool.query("select taskid,teamid,title,description,to_char(deadline, 'YYYY-MM-DD'),isdone,taskcode from task where taskid=$1",[req.query.taskid],function(err,resp){
     if(err){
