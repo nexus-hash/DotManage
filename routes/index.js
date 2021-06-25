@@ -14,6 +14,8 @@ const e = require('express');
 const url = require('url');
 const { escapeXML } = require('ejs');
 const { SSL_OP_NO_SSLv2 } = require('constants');
+const getIP = require('ipware')().get_ip;
+var ip = require('ip');
 
 function makeid(length = 4) {
   var result = [];
@@ -258,6 +260,9 @@ router.post('/login', function (req, res, next) {
               req.session.userid = response.rows[0].uid.toString();
               req.session.useremail = req.body.email;
               req.session.data = null;
+              var ipinfo = ip.address();
+              var message = "<h3>You have a recent login on " + ipinfo.toString() + ".</h3>";
+              sendEmail(req.body.email,"Recent Login",message);
               res.redirect('/dashboard');
             } else {
               res.redirect('/invalid-credentials')
@@ -336,14 +341,13 @@ router.get('/dashboard', function (req, res, next) {
         if (err) {
           console.log(err)
         } else {
-          console.log(resp)
-          var data = {
-            "username": req.session.username,
-            "teams": resp.rows
-          }
-          console.log(data)
-          req.session.data = data;
-          res.render("userlanding", data);
+        var data = {
+          "username": req.session.username,
+          "teams": resp.rows
+        }
+        console.log(data)
+        req.session.data = data;
+        res.render("userlanding", data); 
         }
       })
     }
