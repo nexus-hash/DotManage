@@ -79,17 +79,18 @@
             <div style="flex-grow: 1 ;width: 85%;height: 100%; padding: 4%;" class="formbody">
 
                 <div style="flex-grow: 1 ;width: 90%;height: 100%; padding: 5%; overflow:auto;">
-                    <h1 style="color: black; font-size: 1.2em; ">Promote <%= uname %> ?</h1>
+                    <h1 style="color: black; font-size: 1.2em; ">Remove <%= uname %> ?</h1>
                     <hr style="width:90%; text-align:left; margin-left:0; background-color: gray; height:2px; margin-bottom: 2%;">
-                    <h4 style="color: gray; font-size: 1.2em;text-align: center; ">By clicking on Promote you confirm that you want to make <%= uname %> with Email ID <%= uemail %> as a manager for the team.</h4>
-                    <form action="/promote" method="POST">
+                    <h4 style="color: gray; font-size: 1.2em;text-align: center; ">By clicking on Remove you confirm that you want to kick <%= uname %> with Email ID <%= uemail %> out of the team.</h4>
+                    <form action="/remove" method="POST">
                         <input type="hidden" value="<%= uname %>" name="uname" id="uname">
                     <input type="hidden" value="<%= uemail %>" name="uemail" id="uemail">
                     <input id="teamid" name="teamid" type="hidden" value="<%= teamid %>">
+                    <input type="hidden" value="<%= userid %>" name="uid" id="uid">
                     
 
                 </div>
-                <input class="submit hover:bg-blue-300 inline-block hover:text-black" type="submit"id="submit" value="Promote" readonly >
+                <input class="submit hover:bg-blue-300 inline-block hover:text-black" type="submit"id="submit" value="Remove" readonly >
                 <a href="/dashboard"><input class="submit2 hover:bg-red-300 inline-block text-center hover:text-black" type="button" value="Cancel" readonly >
             </form>
                 

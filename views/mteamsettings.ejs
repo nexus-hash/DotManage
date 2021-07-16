@@ -128,11 +128,12 @@
                                         </div>
                                         </td>
                                         <td class="px-6 py-3 whitespace-no-wrap items-end text-sm leading-5 font-medium">
-                                            <form id="user<%= i %>"action="/promote" method="GET">
+                                            <form id="user<%= i %>"action="/remove" method="GET">
                                                 <input id="uemail" name="uemail" type="hidden" value="<%= users[i].uemail %>">
                                                 <input id="uname" name="uname" type="hidden" value="<%= users[i].uname %>">
                                                 <input id="teamid" name="teamid" type="hidden" value="<%= teamid %>">
-                                            <a href="#" onclick="document.getElementById('user<%= i %>').submit()" type="submit" class="ml-28 text-indigo-600 text-right hover:underline hover:text-indigo-900">Promote</a>
+                                                <input id="userid" name="userid" type="hidden" value="<%= users[i].uid %>">
+                                            <a href="#" onclick="document.getElementById('user<%= i %>').submit()" type="submit" class="ml-28 text-indigo-600 text-right hover:underline hover:text-indigo-900">Remove</a>
                                           </form>
                                             </td>
                                 </tr>
@@ -146,12 +147,9 @@
                     <input type="hidden" value="<%= teamid %>" name="teamid" id="teamid">
                     <input type="hidden" value="<%= tname %>" name="tname" id="tname">
                     <a href="/refreshcode"><button type="submit"class="submit hover:bg-blue-300 inline-block hover:text-black">Refresh Code</button></a>
-                    <a href="/deleteteam"><button type="submit"class="submit2 hover:bg-red-300 inline-block text-center hover:text-black">Delete Team</button></a>
-                    <h1 class="text-sm text-center ml-32 inline-block">Team Joining Code:</h1>
+                    <h1 class="text-sm text-center ml-80 inline-block">Team Joining Code:</h1>
                     <input class="text-lg text-center ml-1 inline-block p-2 placeholder-gray-400 text-gray-700 bg-white rounded shadow" value="<%= tcode %>" readonly>
                 </form>
-                    
-                    <input class="text-lg text-center ml-1 inline-block p-2 placeholder-gray-400 text-gray-700 bg-white rounded shadow" value="<%= tcode %>" readonly>
                     
                 
                 
