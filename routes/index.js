@@ -17,6 +17,10 @@ const { SSL_OP_NO_SSLv2 } = require("constants");
 const getIP = require("ipware")().get_ip;
 var ip = require("ip");
 
+const login = require("./login")
+const signup = require("./signup")
+const sendEmail = require("./sendEmail")
+
 function makeid(length = 4) {
   var result = [];
   var characters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
@@ -52,20 +56,6 @@ function findAndReplace(object, value, replacevalue) {
       // break; // uncomment to stop after first replacement
     }
   }
-}
-
-function sendEmail(to, subject, message) {
-  const mailOptions = {
-    from: "dotmanageapp@gmail.com",
-    to,
-    subject,
-    html: message,
-  };
-  transport.sendMail(mailOptions, (error) => {
-    if (error) {
-      console.log(error);
-    }
-  });
 }
 
 function deadlinecheck() {
@@ -111,6 +101,7 @@ var scale = ["Very-Low", "Low", "Nominal", "High", "Very-High"];
 var scale2 = ["Nominal", "High", "Very-High"];
 var scale3 = ["Low", "Nominal", "High", "Very-High"];
 
+
 /* GET home page. */
 router.get("/", function (req, res, next) {
   if (req.session.username) {
@@ -120,6 +111,7 @@ router.get("/", function (req, res, next) {
   }
 });
 
+// Get signup page
 router.get("/signup", function (req, res, next) {
   if (req.session.username) {
     res.redirect("/dashboard");
@@ -128,71 +120,23 @@ router.get("/signup", function (req, res, next) {
   }
 });
 
+
 router.get("/user-not-found-signup", function (req, res, next) {
   res.render("UserSignup.ejs");
 });
 
+
 router.post("/signup", function (req, res, next) {
-  if (req.session.username) {
-    res.redirect("/dashboard");
-  } else {
-    pool.connect();
-    pool.query(
-      "select count(uemail) from users where uemail = $1",
-      [req.body.email],
-      (err, resp) => {
-        if (err) {
-          res.redirect("/error");
-        } else {
-          if (resp.rows[0].count == 1) {
-            res.redirect("/account-already-exists-login");
-          } else {
-            pool.query(
-              "select count(uname) from users where uname=$1",
-              [req.body.username],
-              (errorrr, responsee) => {
-                if (errorrr) {
-                  console.log("error");
-                  res.redirect("/error");
-                } else {
-                  if (responsee.rows[0].count == 1) {
-                    res.redirect("/usernameunavailable");
-                  } else {
-                    pool.query(
-                      "insert into users (uname,uemail,upassword) values ($1,$2,$3);",
-                      [
-                        req.body.username,
-                        req.body.email,
-                        sha256(req.body.password),
-                      ],
-                      function (err, respons) {
-                        if (err) {
-                          res.redirect("/error");
-                          console.log(err);
-                        } else {
-                          sendEmail(
-                            req.body.email,
-                            "Welcome to Dotmanage App",
-                            "<h2>Sigup was sucessful.</h2>"
-                          );
-                          res.redirect("/login");
-                        }
-                      }
-                    );
-                  }
-                }
-              }
-            );
-          }
-        }
-      }
-    );
-  }
+
+  // Call sigup function
+  signup(req,res);
 });
+
 
 router.get("/usernameunavailable", function (req, res, next) {
   res.render("usernameunavailable");
 });
+
 
 router.get("/jointeam", function (req, res, next) {
   if (req.session.username) {
@@ -201,6 +145,7 @@ router.get("/jointeam", function (req, res, next) {
     res.redirect("/login");
   }
 });
+
 
 router.post("/jointeam", function (req, res, next) {
   pool.query(
@@ -259,6 +204,7 @@ router.post("/jointeam", function (req, res, next) {
   );
 });
 
+
 router.get("/login", function (req, res, next) {
   if (req.session.username) {
     res.redirect("/dashboard");
@@ -267,55 +213,21 @@ router.get("/login", function (req, res, next) {
   }
 });
 
+
 router.get("/account-already-exists-login", function (req, res, next) {
   res.render("Login-alreadyexists.ejs");
 });
+
 
 router.get("/invalid-credentials", function (req, res, next) {
   res.render("Login_invalid.ejs");
 });
 
+
 router.post("/login", function (req, res, next) {
-  if (req.session.username) {
-    res.redirect("/dashboard");
-  } else {
-    pool.connect();
-    pool.query(
-      "select count(*) from users where uemail=$1",
-      [req.body.email],
-      function (err, resp) {
-        if (err) {
-          res.redirect("/error");
-        } else {
-          if (resp.rows[0].count == 0) {
-            res.redirect("/user-not-found-signup");
-          } else {
-            pool.query(
-              "select *from users where uemail=$1",
-              [req.body.email],
-              function (error, response) {
-                if (sha256(req.body.password) == response.rows[0].upassword) {
-                  req.session.username = response.rows[0].uname.toString();
-                  req.session.userid = response.rows[0].uid.toString();
-                  req.session.useremail = req.body.email;
-                  req.session.data = null;
-                  var ipinfo = ip.address();
-                  var message =
-                    "<h3>You have a recent login on " +
-                    ipinfo.toString() +
-                    ".</h3>";
-                  sendEmail(req.body.email, "Recent Login", message);
-                  res.redirect("/dashboard");
-                } else {
-                  res.redirect("/invalid-credentials");
-                }
-              }
-            );
-          }
-        }
-      }
-    );
-  }
+
+  // Call login function
+  login(req,res);
 });
 
 router.get("/createteam", function (req, res, next) {
@@ -1080,6 +992,7 @@ router.get("/passwordupdated", function (req, res, next) {
 router.get("/expired", function (req, res, next) {
   res.render("expired");
 });
+
 router.get("/invalidlink", function (req, res, next) {
   res.render("Signup2");
 });
